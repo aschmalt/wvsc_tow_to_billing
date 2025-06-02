@@ -6,8 +6,12 @@
             "type": "debugpy",
             "request": "launch",
             "module": "pytest",
-            "justMyCode": true,
-            "console": "integratedTerminal"
+            "justMyCode": false,
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "debugOptions": [
+                "BreakOnRaisedException"
+            ]
         }
     ]
 }
