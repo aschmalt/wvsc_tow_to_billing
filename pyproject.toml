@@ -1,0 +1,41 @@
+[project]
+name = "tow_converter"
+description = "Project to convert TOW csv files to invoice csv files for billing purposes."
+
+readme = {file = "README.adoc", content-type = "text/asciidoc"}
+license = {text = "MIT License"}
+license-files = ["LICENSE"]
+authors = [
+    {name = "Alan Schmaltz", email = "schmaltz.alan@gmail.com"},
+]
+
+classifiers = [
+    # How mature is this project? Common values are
+    #   3 - Alpha
+    #   4 - Beta
+    #   5 - Production/Stable
+    "Development Status :: 3 - Alpha",
+
+    # Indicate who your project is intended for
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+
+    # Specify the Python versions you support here.
+    "Programming Language :: Python :: 3.11",
+]
+
+requires-python = ">= 3.11"
+dependencies = [
+]
+
+[project.optional-dependencies]
+gui = [
+    "tkinter"
+]
+test = [
+    "pytest",
+]
+
+# [project.gui-scripts]
+# spam-gui = "spam:main_gui"
+

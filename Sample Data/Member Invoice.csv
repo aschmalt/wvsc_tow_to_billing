@@ -1,0 +1,84 @@
+﻿Display Name,Invoice Date,Due Date,Service Date,Description or Memo,Product,CLASS,SORT Last Name,SORT First Name,Sum of Tow Fee
+"AlLee, Guy",11/1/2024,12/1/2024,10/23/2024 14:38,"Ticket #: 4045,   Release Alt: 3500",Towing,TOW,AlLee,Guy, $80.00 
+"Bardel, Patrick",11/1/2024,12/1/2024,10/2/2024 13:42,"Ticket #: 3988,   Release Alt: 3500 Glider: N107DS",Glider Rental,GLIDER,Bardel,Patrick, $15.00 
+,,,10/2/2024 13:42,"Ticket #: 3988,   Release Alt: 3500",Towing,TOW,Bardel,Patrick, $80.00 
+,,,10/6/2024 13:15,"Ticket #: 3998,   Release Alt: 3500 Glider: N107DS",Glider Rental,GLIDER,Bardel,Patrick, $12.00 
+,,,10/6/2024 13:15,"Ticket #: 3998,   Release Alt: 3500",Towing,TOW,Bardel,Patrick, $80.00 
+,,,10/6/2024 14:08,"Ticket #: 4002,   Release Alt: 3500 Glider: N107DS",Glider Rental,GLIDER,Bardel,Patrick, $9.00 
+,,,10/6/2024 14:08,"Ticket #: 4002,   Release Alt: 3500",Towing,TOW,Bardel,Patrick, $80.00 
+,,,10/9/2024 13:42,"Ticket #: 4010,   Release Alt: 3500 Glider: N107SE",Glider Rental,GLIDER,Bardel,Patrick, $15.00 
+,,,10/9/2024 13:42,"Ticket #: 4010,   Release Alt: 3500",Towing,TOW,Bardel,Patrick, $80.00 
+,,,10/16/2024 12:47,"Ticket #: 4028,   Release Alt: 3500 Glider: N107DS",Glider Rental,GLIDER,Bardel,Patrick, $12.00 
+,,,10/16/2024 12:47,"Ticket #: 4028,   Release Alt: 3500",Towing,TOW,Bardel,Patrick, $80.00 
+,,,10/16/2024 14:09,"Ticket #: 4030,   Release Alt: 3500 Glider: N107DS",Glider Rental,GLIDER,Bardel,Patrick, $15.00 
+,,,10/16/2024 14:09,"Ticket #: 4030,   Release Alt: 3500",Towing,TOW,Bardel,Patrick, $80.00 
+,,,10/23/2024 12:04,"Ticket #: 4042,   Release Alt: 3500 Glider: N107DS",Glider Rental,GLIDER,Bardel,Patrick, $15.00 
+,,,10/23/2024 12:04,"Ticket #: 4042,   Release Alt: 3500",Towing,TOW,Bardel,Patrick, $80.00 
+,,,10/23/2024 13:37,"Ticket #: 4043,   Release Alt: 3400 Glider: N107DS",Glider Rental,GLIDER,Bardel,Patrick, $42.00 
+,,,10/23/2024 13:37,"Ticket #: 4043,   Release Alt: 3400",Towing,TOW,Bardel,Patrick, $78.40 
+"Bottjen, Philip",11/1/2024,12/1/2024,10/6/2024 14:39,"Ticket #: 4004,   Release Alt: 4000",Towing,TOW,Bottjen,Philip, $88.00 
+"Bruder, Nick",11/1/2024,12/1/2024,10/6/2024 14:49,"Ticket #: 4005,   Release Alt: 3500",Towing,TOW,Bruder,Nick, $80.00 
+"Culligan, Tim",11/1/2024,12/1/2024,10/6/2024 14:24,"Ticket #: 4003,   Release Alt: 3500 Glider: N304AM",Glider Rental,GLIDER,Culligan,Tim, $12.00 
+,,,10/6/2024 14:24,"Ticket #: 4003,   Release Alt: 3500",Towing,TOW,Culligan,Tim, $80.00 
+,,,10/6/2024 15:08,"Ticket #: 4006,   Release Alt: 3500 Glider: N2387",Glider Rental,GLIDER,Culligan,Tim, $12.00 
+,,,10/6/2024 15:08,"Ticket #: 4006,   Release Alt: 3500",Towing,TOW,Culligan,Tim, $80.00 
+,,,10/16/2024 12:47,"Ticket #: 4029,   Release Alt: 3500",Towing,TOW,Culligan,Tim, $80.00 
+,,,10/16/2024 15:04,"Ticket #: 4032,   Release Alt: 3500",Towing,TOW,Culligan,Tim, $80.00 
+"Dalby, Warren",11/1/2024,12/1/2024,10/19/2024 10:32,"Ticket #: 4034,   Release Alt: 3500 Glider: N251BA",Glider Rental,GLIDER,Dalby,Warren, $15.00 
+,,,10/19/2024 10:32,"Ticket #: 4034,   Release Alt: 3500",Towing,TOW,Dalby,Warren, $80.00 
+,,,10/19/2024 11:22,"Ticket #: 4035,   Release Alt: 3500 Glider: N251BA",Glider Rental,GLIDER,Dalby,Warren, $12.00 
+,,,10/19/2024 11:22,"Ticket #: 4035,   Release Alt: 3500",Towing,TOW,Dalby,Warren, $80.00 
+,,,10/19/2024 11:59,"Ticket #: 4036,   Release Alt: 3200 Glider: N251BA",Glider Rental,GLIDER,Dalby,Warren, $9.00 
+,,,10/19/2024 11:59,"Ticket #: 4036,   Release Alt: 3200",Towing,TOW,Dalby,Warren, $75.20 
+,,,10/23/2024 10:21,"Ticket #: 4040,   Release Alt: 4000 Glider: N251BA",Glider Rental,GLIDER,Dalby,Warren, $12.00 
+,,,10/23/2024 10:21,"Ticket #: 4040,   Release Alt: 4000",Towing,TOW,Dalby,Warren, $88.00 
+"Durkee, Frank",11/1/2024,12/1/2024,10/12/2024 11:35,"Ticket #: 4016,   Release Alt: 3000 Glider: N251BA",Glider Rental,GLIDER,Durkee,Frank, $9.00 
+,,,10/12/2024 11:35,"Ticket #: 4016,   Release Alt: 3000",Towing,TOW,Durkee,Frank, $72.00 
+"Horner, Greg",11/1/2024,12/1/2024,10/12/2024 15:24,"Ticket #: 4026,   Release Alt: 3500 Glider: N2387",Glider Rental,GLIDER,Horner,Greg, $9.00 
+,,,10/12/2024 15:24,"Ticket #: 4026,   Release Alt: 3500",Towing,TOW,Horner,Greg, $80.00 
+"Moore, Daniel",11/1/2024,12/1/2024,10/23/2024 14:50,"Ticket #: 4046,   Release Alt: 3000 Glider: N922SB",Glider Rental,GLIDER,Moore,Daniel, $24.00 
+,,,10/23/2024 14:50,"Ticket #: 4046,   Release Alt: 3000",Towing,TOW,Moore,Daniel, $72.00 
+,,,10/23/2024 16:12,"Ticket #: 4050,   Release Alt: 4000 Glider: N922SB",Glider Rental,GLIDER,Moore,Daniel, $12.00 
+,,,10/23/2024 16:12,"Ticket #: 4050,   Release Alt: 4000",Towing,TOW,Moore,Daniel, $88.00 
+"Morgan, Terresa",11/1/2024,12/1/2024,10/23/2024 15:01,"Ticket #: 4047,   Release Alt: 3500 Glider: N107DS",Glider Rental,GLIDER,Morgan,Terresa, $21.00 
+,,,10/23/2024 15:01,"Ticket #: 4047,   Release Alt: 3500",Towing,TOW,Morgan,Terresa, $80.00 
+"Morse, Christopher",11/1/2024,12/1/2024,10/12/2024 13:38,"Ticket #: 4021,   Release Alt: 1500 Glider: N256BA",Glider Rental,GLIDER,Morse,Christopher, $9.00 
+,,,10/12/2024 13:38,"Ticket #: 4021,   Release Alt: 1500",Towing,TOW,Morse,Christopher, $48.00 
+,,,10/12/2024 13:59,"Ticket #: 4023,   Release Alt: 1000 Glider: N256BA",Glider Rental,GLIDER,Morse,Christopher, $9.00 
+,,,10/12/2024 13:59,"Ticket #: 4023,   Release Alt: 1000",Towing,TOW,Morse,Christopher, $40.00 
+"Rempel, Sam",11/1/2024,12/1/2024,10/5/2024 13:30,"Ticket #: 3989,   Release Alt: 2700 Glider: N251BA",Glider Rental,GLIDER,Rempel,Sam, $9.00 
+,,,10/5/2024 13:30,"Ticket #: 3989,   Release Alt: 2700",Towing,TOW,Rempel,Sam, $67.20 
+,,,10/5/2024 14:01,"Ticket #: 3990,   Release Alt: 600 Glider: N251BA",Glider Rental,GLIDER,Rempel,Sam, $9.00 
+,,,10/5/2024 14:01,"Ticket #: 3990,   Release Alt: 600",Towing,TOW,Rempel,Sam, $33.60 
+,,,10/23/2024 14:27,"Ticket #: 4044,   Release Alt: 3500 Glider: N251BA",Glider Rental,GLIDER,Rempel,Sam, $18.00 
+,,,10/23/2024 14:27,"Ticket #: 4044,   Release Alt: 3500",Towing,TOW,Rempel,Sam, $80.00 
+,,,10/23/2024 15:45,"Ticket #: 4049,   Release Alt: 3500 Glider: N251BA",Glider Rental,GLIDER,Rempel,Sam, $12.00 
+,,,10/23/2024 15:45,"Ticket #: 4049,   Release Alt: 3500",Towing,TOW,Rempel,Sam, $80.00 
+,,,10/25/2024 15:41,"Ticket #: 4053,   Release Alt: 3500 Glider: N251BA",Glider Rental,GLIDER,Rempel,Sam, $12.00 
+,,,10/25/2024 15:41,"Ticket #: 4053,   Release Alt: 3500",Towing,TOW,Rempel,Sam, $80.00 
+,,,10/25/2024 16:14,"Ticket #: 4056,   Release Alt: 4500 Glider: N251BA",Glider Rental,GLIDER,Rempel,Sam, $12.00 
+,,,10/25/2024 16:14,"Ticket #: 4056,   Release Alt: 4500",Towing,TOW,Rempel,Sam, $96.00 
+"Risinger, Andrew",11/1/2024,12/1/2024,10/9/2024 13:53,"Ticket #: 4011,   Release Alt: 3000 Glider: N922SB",Glider Rental,GLIDER,Risinger,Andrew, $24.00 
+,,,10/9/2024 13:53,"Ticket #: 4011,   Release Alt: 3000",Towing,TOW,Risinger,Andrew, $72.00 
+,,,10/19/2024 12:34,"Ticket #: 4037,   Release Alt: 3500 Glider: N922SB",Glider Rental,GLIDER,Risinger,Andrew, $15.00 
+,,,10/19/2024 12:34,"Ticket #: 4037,   Release Alt: 3500",Towing,TOW,Risinger,Andrew, $80.00 
+,,,10/19/2024 13:21,"Ticket #: 4039,   Release Alt: 1500 Glider: N922SB",Glider Rental,GLIDER,Risinger,Andrew, $9.00 
+,,,10/19/2024 13:21,"Ticket #: 4039,   Release Alt: 1500",Towing,TOW,Risinger,Andrew, $48.00 
+"Roth, Tom",11/1/2024,12/1/2024,10/12/2024 10:06,"Ticket #: 4013,   Release Alt: 3000 Glider: N256BA",Glider Rental,GLIDER,Roth,Tom, $9.00 
+,,,10/12/2024 10:06,"Ticket #: 4013,   Release Alt: 3000",Towing,TOW,Roth,Tom, $72.00 
+,,,10/12/2024 10:07,"Ticket #: 4014,   Release Alt: 300 Glider: N256BA",Glider Rental,GLIDER,Roth,Tom, $9.00 
+,,,10/12/2024 10:07,"Ticket #: 4014,   Release Alt: 300",Towing,TOW,Roth,Tom, $28.80 
+,,,10/12/2024 10:07,"Ticket #: 4015,   Release Alt: 1200 Glider: N107DS",Glider Rental,GLIDER,Roth,Tom, $9.00 
+,,,10/12/2024 10:07,"Ticket #: 4015,   Release Alt: 1200",Towing,TOW,Roth,Tom, $43.20 
+"Sampson, Cani",11/1/2024,12/1/2024,10/2/2024 11:55,"Ticket #: 3986,   Release Alt: 3000 Glider: N256BA",Glider Rental,GLIDER,Sampson,Cani, $9.00 
+,,,10/2/2024 11:55,"Ticket #: 3986,   Release Alt: 3000",Towing,TOW,Sampson,Cani, $72.00 
+,,,10/2/2024 12:35,"Ticket #: 3987,   Release Alt: 3000 Glider: N256BA",Glider Rental,GLIDER,Sampson,Cani, $12.00 
+,,,10/2/2024 12:35,"Ticket #: 3987,   Release Alt: 3000",Towing,TOW,Sampson,Cani, $72.00 
+,,,10/9/2024 12:48,"Ticket #: 4008,   Release Alt: 3000 Glider: N256BA",Glider Rental,GLIDER,Sampson,Cani, $9.00 
+,,,10/9/2024 12:48,"Ticket #: 4008,   Release Alt: 3000",Towing,TOW,Sampson,Cani, $72.00 
+,,,10/9/2024 14:27,"Ticket #: 4012,   Release Alt: 3000 Glider: N256BA",Glider Rental,GLIDER,Sampson,Cani, $9.00 
+,,,10/9/2024 14:27,"Ticket #: 4012,   Release Alt: 3000",Towing,TOW,Sampson,Cani, $72.00 
+"Widrig, David",11/1/2024,12/1/2024,10/9/2024 13:27,"Ticket #: 4009,   Release Alt: 3000 Glider: N107SE",Glider Rental,GLIDER,Widrig,David, $15.00 
+,,,10/9/2024 13:27,"Ticket #: 4009,   Release Alt: 3000",Towing,TOW,Widrig,David, $72.00 
+"Winbow, Alex",11/1/2024,12/1/2024,10/25/2024 15:43,"Ticket #: 4054,   Release Alt: 4500 Glider: N107SE",Glider Rental,GLIDER,Winbow,Alex, $12.00 
+,,,10/25/2024 15:43,"Ticket #: 4054,   Release Alt: 4500",Towing,TOW,Winbow,Alex, $96.00 

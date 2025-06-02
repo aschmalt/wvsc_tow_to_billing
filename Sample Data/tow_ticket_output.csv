@@ -1,0 +1,68 @@
+"Ticket #","Date Time",Month,"Bill To/Pilot",CFIG,Guest,Airport,Category,"Billable Rental","Billable Tow","Glider ID","Tow Type","Tow Speed","Alt Required","Release Alt","Glider Time","Tow Raw","Tow Fee","Rental Raw","Glider Rental","Flight Brief",Remarks,Certificate,"Tow Pilot","Tow Plane","Flown Flag","Closed Flag"
+3984,"2024-10-02 10:48:58",10,"Yokoyama, Yokoyama",,"Mark / 220",1OR4,Intro,0,0,N251BA,Aero,60,3500,3500,0.4,$80.00,,$12.00,,Standard,,E-121,"Mike Finch",6782Z,1,1
+3986,"2024-10-02 11:55:05",10,"Sampson, Sampson","Widrig, David",,1OR4,"Club Glider",1,1,N256BA,Aero,60,3000,3000,0.3,$72.00,$72.00,$10.00,$10.00,"Box The Wake",,,"Mike Finch",6782Z,1,1
+3987,"2024-10-02 12:35:44",10,"Sampson, Sampson","Widrig, David",,1OR4,"Club Glider",1,1,N256BA,Aero,60,3000,3000,0.4,$72.00,$72.00,$12.00,$12.00,"Box The Wake",,,"Mike Finch",6782Z,1,1
+3988,"2024-10-02 13:42:55",10,"Bardel, Bardel",,,1OR4,"Club Glider",1,1,N107DS,Aero,65,3500,3500,0.5,$80.00,$80.00,$15.00,$15.00,Standard,,,"Mike Finch",6782Z,1,1
+3989,"2024-10-05 13:30:03",10,"Rempel, Rempel","Bragg, Scott",,1OR4,"Club Glider",1,1,N251BA,Aero,65,3200,2700,0.3,$67.20,$67.20,$10.00,$10.00,"Box The Wake",,,"Joachim Wieland",6782Z,1,1
+3990,"2024-10-05 14:01:53",10,"Rempel, Rempel","Bragg, Scott",,1OR4,"Club Glider",1,1,N251BA,Aero,65,600,600,0.1,$33.60,$33.60,$10.00,$10.00,"Rope Break",,,"Joachim Wieland",6782Z,1,1
+3991,"2024-10-05 14:47:31",10,"Bragg, Bragg",,Don/210,1OR4,Intro,0,0,N107SE,Aero,65,3500,3500,0.4,$80.00,,$12.00,,Standard,,3448,"Joachim Wieland",6782Z,1,1
+3992,"2024-10-05 15:55:57",10,"Bragg, Bragg",,Dale/170,1OR4,Intro,0,0,N107SE,Aero,65,3500,3500,0.4,$80.00,,$12.00,,Standard,,#E-14,"Joachim Wieland",6782Z,1,1
+3993,"2024-10-06 10:33:57",10,"Yokoyama, Yokoyama",,Chuck,1OR4,Intro,0,0,N251BA,Aero,65,3500,3500,0.4,$80.00,,$12.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+3994,"2024-10-06 10:37:34",10,"Yokoyama, Yokoyama",,Echo,1OR4,Intro,0,0,N251BA,Aero,65,3500,3500,0.4,$80.00,,$12.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+3995,"2024-10-06 12:04:19",10,"Yokoyama, Yokoyama"," ",Pat,1OR4,Intro,0,0,N251BA,Aero,65,3500,3500,0.4,$80.00,,$12.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+3996,"2024-10-06 12:43:33",10,"Bragg, Bragg",,Hunter,1OR4,Intro,0,0,N107SE,Aero,65,3500,3500,0.4,$80.00,,$12.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+3997,"2024-10-06 12:59:54",10,"Yokoyama, Yokoyama",,Andre,1OR4,Intro,0,0,N251BA,Aero,65,3500,3500,0.4,$80.00,,$12.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+3998,"2024-10-06 13:15:19",10,"Bardel, Bardel",,,1OR4,"Club Glider",1,1,N107DS,Aero,65,3500,3500,0.4,$80.00,$80.00,$12.00,$12.00,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4000,"2024-10-06 13:40:32",10,"Yokoyama, Yokoyama",,Hudson,1OR4,Intro,0,0,N251BA,Aero,35,3500,3500,0.4,$80.00,,$12.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4001,"2024-10-06 13:59:40",10,"Bragg, Bragg",,Ben,1OR4,Intro,0,0,N107SE,Aero,65,3500,3500,0.4,$80.00,,$12.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4002,"2024-10-06 14:08:01",10,"Bardel, Bardel",,,1OR4,"Club Glider",1,1,N107DS,Aero,65,3500,3500,0.3,$80.00,$80.00,$10.00,$10.00,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4003,"2024-10-06 14:24:25",10,"Culligan, Culligan",,,1OR4,"Club Glider",1,1,N304AM,Aero,65,3500,3500,0.4,$80.00,$80.00,$12.00,$12.00,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4004,"2024-10-06 14:39:07",10,"Bottjen, Bottjen",,,1OR4,"Private Glider",0,1,N481RE,Aero,65,4000,4000,0.8,$88.00,$88.00,$24.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4005,"2024-10-06 14:49:42",10,"Bruder, Bruder",,,1OR4,"Private Glider",0,1,8W,Aero,65,3509,3500,0.1,$80.00,$80.00,$10.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4006,"2024-10-06 15:08:34",10,"Culligan, Culligan"," ",,1OR4,"Club Glider",1,1,N2387,Aero,65,3500,3500,0.4,$80.00,$80.00,$12.00,$12.00,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4007,"2024-10-06 16:14:14",10,"Bragg, Bragg",,Anirudh,1OR4,Intro,0,0,N251BA,Aero,65,3500,3500,0.4,$80.00,,$12.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4008,"2024-10-09 12:48:43",10,"Sampson, Sampson","Widrig, David",,1OR4,"Club Glider",1,1,N256BA,Aero,60,3000,3000,0.1,$72.00,$72.00,$10.00,$10.00,"Box The Wake",,,"John Howell",6782Z,1,1
+4009,"2024-10-09 13:27:23",10,"Widrig, Widrig",,"Brian Bishop",1OR4,"Club Glider",1,1,N107SE,Aero,65,3000,3000,0.5,$72.00,$72.00,$15.00,$15.00,"Box The Wake",,,"John Howell",6782Z,1,1
+4010,"2024-10-09 13:42:44",10,"Bardel, Bardel",,"Carlton sawyer",1OR4,"Club Glider",1,1,N107SE,Aero,65,3500,3500,0.5,$80.00,$80.00,$15.00,$15.00,Standard,,,"John Howell",6782Z,1,1
+4011,"2024-10-09 13:53:27",10,"Risinger, Risinger",,"Marcus Elmer",1OR4,"Club Glider",1,1,N922SB,Aero,60,3000,3000,0.8,$72.00,$72.00,$24.00,$24.00,"Box The Wake","Friend ride",,"John Howell",6782Z,1,1
+4012,"2024-10-09 14:27:04",10,"Sampson, Sampson","Widrig, David",,1OR4,"Club Glider",1,1,N256BA,Aero,65,3000,3000,0.3,$72.00,$72.00,$10.00,$10.00,"Box The Wake",,,"John Howell",6782Z,1,1
+4013,"2024-10-12 10:06:13",10,"Roth, Roth","Bamberg, Mike",,1OR4,"Club Glider",1,1,N256BA,Aero,65,3000,3000,0.1,$72.00,$72.00,$10.00,$10.00,"Box The Wake",,,"Sam Ozenbaugh",6782Z,1,1
+4014,"2024-10-12 10:07:24",10,"Roth, Roth","Bamberg, Mike",,1OR4,"Club Glider",1,1,N256BA,Aero,65,1200,300,0.2,$28.80,$28.80,$10.00,$10.00,Standard,"Pattern tow",,"Sam Ozenbaugh",6782Z,1,1
+4015,"2024-10-12 10:07:58",10,"Roth, Roth","Bamberg, Mike",,1OR4,"Club Glider",1,1,N107DS,Aero,65,1200,1200,0.1,$43.20,$43.20,$10.00,$10.00,Standard,"Pattern tow",,"Sam Ozenbaugh",6782Z,1,1
+4016,"2024-10-12 11:35:41",10,"Durkee, Durkee",,,1OR4,"Club Glider",1,1,N251BA,Aero,60,3000,3000,0.3,$72.00,$72.00,$10.00,$10.00,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4017,"2024-10-12 12:25:41",10,"Bardel, Bardel",,"Liam Lekhraj",1OR4,Intro,0,0,N107SE,Aero,65,3500,3500,0.4,$80.00,,$12.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4018,"2024-10-12 12:48:45",10,"Canfield, Canfield",,"Denise Hadley",1OR4,Intro,0,0,N256BA,Aero,65,3500,3500,0.3,$80.00,,$10.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4019,"2024-10-12 13:03:23",10,"Durkee, Durkee",,,1OR4,Intro,0,0,N251BA,Aero,60,3500,3500,0.3,$80.00,,$10.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4020,"2024-10-12 13:19:35",10,"Bardel, Bardel",,"Liam Lekhraj",1OR4,Intro,0,0,N107SE,Aero,65,3500,3500,0.4,$80.00,,$12.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4021,"2024-10-12 13:38:46",10,"Morse, Morse","Mike Bamberg",,1OR4,"Club Glider",1,1,N256BA,Aero,65,1500,1500,0.3,$48.00,$48.00,$10.00,$10.00,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4022,"2024-10-12 13:46:41",10,"Durkee, Durkee",,Nanette,1OR4,Intro,0,0,N251BA,Aero,60,3500,3500,0.3,$80.00,,$10.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4023,"2024-10-12 13:59:58",10,"Morse, Morse","Bamberg, Mike",,1OR4,"Club Glider",1,1,N256BA,Aero,65,1500,1000,0.3,$40.00,$40.00,$10.00,$10.00,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4024,"2024-10-12 14:03:26",10,"Bardel, Bardel",,"Frank Acebo",1OR4,Intro,0,0,N107SE,Aero,65,3500,3500,0.5,$80.00,,$15.00,,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4025,"2024-10-12 14:19:09",10,"Culligan, Culligan"," ",,1OR4,Complementary,0,0,N2387,Aero,65,3500,3500,0.3,$80.00,,$10.00,,Standard,"Test flight",,"Sam Ozenbaugh",6782Z,1,1
+4026,"2024-10-12 15:24:55",10,"Horner, Horner",,,1OR4,"Club Glider",1,1,N2387,Aero,65,3500,3500,0.3,$80.00,$80.00,$10.00,$10.00,Standard,,,"Sam Ozenbaugh",6782Z,1,1
+4028,"2024-10-16 12:47:22",10,"Bardel, Bardel",,,1OR4,"Club Glider",1,1,N107DS,Aero,65,3500,3500,0.4,$80.00,$80.00,$12.00,$12.00,Standard,"To the north west of the Y.",,"John Howell",6782Z,1,1
+4029,"2024-10-16 12:47:57",10,"Culligan, Culligan",,,1OR4,"Private Glider",0,1,N481RE,Aero,65,3500,3500,0.9,$80.00,$80.00,$27.00,,Standard,,,"John Howell",6782Z,1,1
+4030,"2024-10-16 14:09:04",10,"Bardel, Bardel",,,1OR4,"Club Glider",1,1,N107DS,Aero,65,3500,3500,0.5,$80.00,$80.00,$15.00,$15.00,Standard,"North of the Y",,"John Howell",6782Z,1,1
+4031,"2024-10-16 14:49:31",10,"Bardel, Bardel",,Chuck,1OR4,Intro,0,0,N107SE,Aero,65,3500,3500,0.5,$80.00,,$15.00,,Standard,,,"John Howell",6782Z,1,1
+4032,"2024-10-16 15:04:57",10,"Culligan, Culligan",,,1OR4,"Private Glider",0,1,N481RE,Aero,65,3500,3500,1.5,$80.00,$80.00,$45.00,,Standard,,,"John Howell",6782Z,1,1
+4034,"2024-10-19 10:32:57",10,"Dalby, Dalby"," ",,1OR4,"Club Glider",1,1,N251BA,Aero,60,3500,3500,0.5,$80.00,$80.00,$15.00,$15.00,Standard,,,"Bradley Davis",6782Z,1,1
+4035,"2024-10-19 11:22:16",10,"Dalby, Dalby",,,1OR4,"Club Glider",1,1,N251BA,Aero,60,3500,3500,0.4,$80.00,$80.00,$12.00,$12.00,Standard,,,"Bradley Davis",6782Z,1,1
+4036,"2024-10-19 11:59:41",10,"Dalby, Dalby",,,1OR4,"Club Glider",1,1,N251BA,Aero,60,3000,3200,0.3,$75.20,$75.20,$10.00,$10.00,Standard,,,"Bradley Davis",6782Z,1,1
+4037,"2024-10-19 12:34:39",10,"Risinger, Risinger",,"Jake Mellor",1OR4,"Club Glider",1,1,N922SB,Aero,60,3500,3500,0.5,$80.00,$80.00,$15.00,$15.00,"Box The Wake",,,"Bradley Davis",6782Z,1,1
+4038,"2024-10-19 13:07:55",10,"Dalby, Dalby"," ","Carrie Pearson",1OR4,Intro,0,0,N251BA,Aero,65,3500,3500,0.3,$80.00,,$10.00,,Standard,,,"Bradley Davis",6782Z,1,1
+4039,"2024-10-19 13:21:56",10,"Risinger, Risinger",,"Jake Mellor",1OR4,"Club Glider",1,1,N922SB,Aero,60,1500,1500,0.2,$48.00,$48.00,$10.00,$10.00,Standard,,,"Bradley Davis",6782Z,1,1
+4040,"2024-10-23 10:21:10",10,"Dalby, Dalby",,,1OR4,"Club Glider",1,1,N251BA,Aero,60,4000,4000,0.4,$88.00,$88.00,$12.00,$12.00,Standard,,,"John Howell",6782Z,1,1
+4041,"2024-10-23 11:04:14",10,"Durkee, Durkee"," ",Deb,1OR4,Intro,0,0,N922SB,Aero,60,3500,3500,0.3,$80.00,,$10.00,,Standard,Intro,,"John Howell",6782Z,1,1
+4042,"2024-10-23 12:04:41",10,"Bardel, Bardel",,,1OR4,"Club Glider",1,1,N107DS,Aero,65,3500,3500,0.5,$80.00,$80.00,$15.00,$15.00,Standard,"Well north of the Y into the hills..",,"John Howell",6782Z,1,1
+4043,"2024-10-23 13:37:03",10,"Bardel, Bardel",,,1OR4,"Club Glider",1,1,N107DS,Aero,65,3600,3400,1.4,$78.40,$78.40,$42.00,$42.00,Standard,,,"John Howell",6782Z,1,1
+4044,"2024-10-23 14:27:19",10,"Rempel, Rempel","Flinn, Don",,1OR4,"Club Glider",1,1,N251BA,Aero,65,3500,3500,0.6,$80.00,$80.00,$18.00,$18.00,"Box The Wake",Solo,,"John Howell",6782Z,1,1
+4045,"2024-10-23 14:38:21",10,"AlLee, AlLee",,,1OR4,"Private Glider",0,1,GA,Aero,65,3500,3500,,$80.00,$80.00,$10.00,,Standard,"To Y, then NW up ridge",,"John Howell",6782Z,1,1
+4046,"2024-10-23 14:50:39",10,"Moore, Moore","Flinn, Don",,1OR4,"Club Glider",1,1,N922SB,Aero,60,3500,3000,0.8,$72.00,$72.00,$24.00,$24.00,"Box The Wake",,,"John Howell",6782Z,1,1
+4047,"2024-10-23 15:01:39",10,"Morgan, Morgan",,,1OR4,"Club Glider",1,1,N107DS,Aero,65,3500,3500,0.7,$80.00,$80.00,$21.00,$21.00,Standard,,,"John Howell",6782Z,1,1
+4049,"2024-10-23 15:45:04",10,"Rempel, Rempel","Flinn, Don",,1OR4,"Club Glider",1,1,N251BA,Aero,65,3500,3500,0.4,$80.00,$80.00,$12.00,$12.00,"Box The Wake",Solo,,"John Howell",6782Z,1,1
+4050,"2024-10-23 16:12:02",10,"Moore, Moore","Flinn, Don",,1OR4,"Club Glider",1,1,N922SB,Aero,60,3000,4000,0.4,$88.00,$88.00,$12.00,$12.00,"Box The Wake",,,"John Howell",6782Z,1,1
+4051,"2024-10-25 11:47:49",10,"Bardel, Bardel",,Shari,1OR4,Intro,0,0,N107SE,Aero,65,14500,3500,0.4,$80.00,,$12.00,,Standard,,E-137,"John Howell",6782Z,1,1
+4052,"2024-10-25 13:21:01",10,"Bardel, Bardel"," ",Eric,1OR4,Intro,0,0,N251BA,Aero,65,12347,3500,0.4,$80.00,,$12.00,,Standard,,,"Scott Bragg",6782Z,1,1
+4053,"2024-10-25 15:41:52",10,"Rempel, Rempel","Bragg, Scott",,1OR4,"Club Glider",1,1,N251BA,Aero,65,3500,3500,0.4,$80.00,$80.00,$12.00,$12.00,"Box The Wake",Solo,,"Scott Bragg",6782Z,1,1
+4054,"2024-10-25 15:43:34",10,"Winbow, Winbow",,,1OR4,"Club Glider",1,1,N107SE,Aero,65,4000,4500,0.4,$96.00,$96.00,$12.00,$12.00,Standard,,,"Scott Bragg",6782Z,1,1
+4056,"2024-10-25 16:14:09",10,"Rempel, Rempel","Bragg, Scott",,1OR4,"Club Glider",1,1,N251BA,Aero,65,4500,4500,0.4,$96.00,$96.00,$12.00,$12.00,"Box The Wake",Solo,,"Scott Bragg",6782Z,1,1
