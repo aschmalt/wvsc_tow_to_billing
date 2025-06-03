@@ -2,17 +2,17 @@
     "editor.rulers": [
         80,
         120
-    ]
+    ],
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
     "python.formatting.provider": "autopep8",
     "python.formatting.autopep8Args": [
         "--max-line-length=120"
     ],
-    "python.analysis.lineLength": 120
+    "python.analysis.lineLength": 120,
     "editor.formatOnSave": true,
     "python.linting.enabled": true,
-    "python.linting.pylintEnabled": true
+    "python.linting.pylintEnabled": true,
     "python.linting.mypyEnabled": true,
     "python.linting.mypyArgs": [
         // "--ignore-missing-imports"

@@ -110,7 +110,7 @@ class MemberInvoiceItem:
                 classification=Classification.TOW,
                 last_name=last_name,
                 first_name=first_name,
-                amount=tow_data.rental_fee
+                amount=tow_data.tow_fee
             )
             items.append(item)
 

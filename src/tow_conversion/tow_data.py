@@ -55,7 +55,7 @@ class TowDataItem:
                                "description": "Flag indicating if the tow is billable"})
     tow_speed: int = field(default=0, metadata={
                            "description": "Speed of the tow in knots"})
-    alt_required: int = field(default=False, metadata={
+    alt_required: int = field(metadata={
                               "description": "Altitude Requested in feet"})
     release_alt: int = field(default=0, metadata={
                              "description": "Release altitude in feet"})
@@ -145,10 +145,6 @@ class TowDataItem:
                     inputs['tow_plane'] = row['Tow Plane']
                 if 'Guest' in row:
                     inputs['guest'] = row['Guest']
-                if 'Alt Required' in row:
-                    inputs['alt_required'] = int(row['Alt Required'])
-                if 'Release Alt' in row:
-                    inputs['release_alt'] = int(row['Release Alt'])
                 if 'Flown Flag' in row:
                     inputs['flown_flag'] = row.get('Flown Flag', None) == '1'
                 if 'Closed Flag' in row:
@@ -172,4 +168,4 @@ class TowDataItem:
 
     def __repr__(self) -> str:
         """Official string representation of the TowData instance."""
-        return (f"TowData(ticket={self.ticket}")
+        return (f"TowDataItem(ticket={self.ticket})")
