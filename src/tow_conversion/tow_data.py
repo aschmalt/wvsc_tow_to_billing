@@ -55,7 +55,7 @@ class TowDataItem:
                                "description": "Flag indicating if the tow is billable"})
     tow_speed: int = field(default=0, metadata={
                            "description": "Speed of the tow in knots"})
-    alt_required: int = field(metadata={
+    alt_required: int = field(default=0, metadata={
                               "description": "Altitude Requested in feet"})
     release_alt: int = field(default=0, metadata={
                              "description": "Release altitude in feet"})

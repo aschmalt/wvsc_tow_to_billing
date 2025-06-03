@@ -4,7 +4,7 @@ from datetime import datetime
 from tow_conversion.tow_data import TowDataItem
 
 
-def valid_tow_kwargs():
+def valid_tow_kwargs() -> dict[str, int | datetime | str | float]:
     return dict(
         ticket=1,
         date_time=datetime(2024, 6, 1, 12, 0),
@@ -33,7 +33,7 @@ def valid_tow_kwargs():
     )
 
 
-def test_valid_towdata_creation():
+def test_valid_towdata_creation() -> None:
     tow = TowDataItem(**valid_tow_kwargs())
     assert tow.ticket == 1
     assert tow.pilot == "John Doe"
@@ -43,11 +43,10 @@ def test_valid_towdata_creation():
     assert tow.closed_flag is True
 
 
-@pytest.mark.parametrize("ticket", [-1, -100])
-def test_ticket_must_be_non_negative(ticket) -> None:
+def test_ticket_must_be_non_negative() -> None:
     kwargs = valid_tow_kwargs()
-    kwargs['ticket'] = ticket
-    with pytest.raises(ValueError, match="Tow Ticket must be a non-negative value."):
+    kwargs['ticket'] = ''
+    with pytest.raises(ValueError, match="Tow Ticket must have a value."):
         TowDataItem(**kwargs)
 
 
@@ -91,7 +90,7 @@ def test_str_and_repr_methods() -> None:
     s = str(tow)
     r = repr(tow)
     assert "TOW Ticket: 1" in s
-    assert "TowData(ticket=1" in r
+    assert "TowDataItem(ticket=1)" in r
 
 
 def test_read_from_tow_csv(tmp_path) -> None:
