@@ -36,8 +36,10 @@ UNDER DEVELOPMENT
 == Project Structure
 
 * `src/tow_conversion/tow_data.py` - Data model and CSV parsing for tow tickets.
-* `src/tow_conversion/member_invoice.py` - Classes and logic for member invoice generation.
+* `src/tow_conversion/member_invoice.py` - Classes and logic for Member Invoice generation.
+* `src/tow_conversion/vendor_bill.py` - Classes and logic for Vendor Bill generation.
 * `src/converter.py` - Command-line interface for the conversion process.
+* `unit_tests/` - Unit tests for the conversion logic.
 
 == Class Diagram
 
