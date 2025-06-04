@@ -94,7 +94,7 @@ MIT License
 git clone <http path>
 ----
 
-. Install dependencies (Python 3.10+ recommended):
+. Install dependencies (Python 3.11+ recommended):
 +
 ----
 pip install -e '.[dev]'
