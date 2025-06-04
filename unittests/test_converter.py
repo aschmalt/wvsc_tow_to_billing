@@ -1,11 +1,8 @@
 from pathlib import Path
 import pytest
 import csv
-from tow_conversion import (TowDataItem,
-                            MemberInvoiceItem,
-                            VendorBillItem,
-                            export_member_invoices_to_csv,
-                            export_vendor_bills_to_csv)
+from tow_conversion import (convert_tow_ticket_to_member_invoice,
+                            convert_tow_ticket_to_vendor_bill)
 
 
 @pytest.fixture
@@ -22,14 +19,9 @@ def test_convert_member_invoice(sample_data_dir: Path, tmp_path: Path) -> None:
     assert golden_file.exists(), \
         f"Golden file {golden_file} does not exist."
 
-    all_tow_data = TowDataItem.read_from_tow_csv(input_file)
-    member_invoice: list[MemberInvoiceItem] = list()
-    for tow_data in all_tow_data:
-        member_invoice.extend(MemberInvoiceItem.from_tow_data(tow_data))
-
-    output_file = tmp_path / 'test_member_invoice.csv'
-    export_member_invoices_to_csv(
-        invoices=member_invoice, filename=output_file)
+    output_file = tmp_path / 'test_output.csv'
+    convert_tow_ticket_to_member_invoice(tow_ticket_file=input_file,
+                                         output_file=output_file)
 
     with open(output_file, 'r', encoding='utf-8') as output_f:
         output_data = list(csv.DictReader(output_f))
@@ -66,13 +58,9 @@ def test_convert_vendor_bills(sample_data_dir: Path, tmp_path: Path) -> None:
     assert golden_file.exists(), \
         f"Golden file {golden_file} does not exist."
 
-    all_tow_data = TowDataItem.read_from_tow_csv(input_file)
-    vendor_bills: list[VendorBillItem] = list()
-    for tow_data in all_tow_data:
-        vendor_bills.extend(VendorBillItem.from_tow_data(tow_data))
-
-    output_file = tmp_path / 'test_vendor_bills.csv'
-    export_vendor_bills_to_csv(invoices=vendor_bills, filename=output_file)
+    output_file = tmp_path / 'test_output.csv'
+    convert_tow_ticket_to_vendor_bill(tow_ticket_file=input_file,
+                                      output_file=output_file)
 
     with open(output_file, 'r', encoding='utf-8') as output_f:
         output_data = list(csv.DictReader(output_f))

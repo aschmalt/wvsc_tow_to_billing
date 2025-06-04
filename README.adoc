@@ -1,2 +1,110 @@
-# wvsc_tow_to_billing
-Convert CSV from tow-ticket output to billing input
+= WVSC Tow Ticket to Billing Converter
+
+A tool to convert CSV files exported from tow-ticket software into a format suitable for billing input.
+
+== Interface
+
+=== Command Line Interface
+
+UNDER DEVELOPMENT
+
+The command line interface allows users to convert tow ticket CSV files into billing-ready CSV files for member invoices and vendor bills.
+
+// . Example conversion:
+// +
+// ----
+// python src/converter.py input_tow_tickets.csv output_billing.csv
+// ----
+
+=== GUI
+
+UNDER DEVELOPMENT
+
+The graphical user interface will provide an easy way to select input files and output directories, making the conversion process more user-friendly.
+
+== Installation
+
+UNDER DEVELOPMENT
+
+== Features
+
+* Parses tow ticket CSVs and generates billing-ready CSVs.
+* Supports member invoice generation, glider rental, and tow fee calculations.
+* Handles date formatting and data validation.
+* Extensible for additional billing fields.
+
+== Project Structure
+
+* `src/tow_conversion/tow_data.py` - Data model and CSV parsing for tow tickets.
+* `src/tow_conversion/member_invoice.py` - Classes and logic for member invoice generation.
+* `src/converter.py` - Command-line interface for the conversion process.
+
+== Class Diagram
+
+Below is a high-level overview of the main classes and their relationships:
+
+=== Deep Dive: Flow Chart for converter::convert_tow_ticket_to_member_invoice
+
+[mermaid,convert-member-invoice-flow,svg]
+----
+flowchart TD
+    A[/Tow Ticket App CSV/]
+    A --> C[Read tow ticket CSV with TowDataItem.read_from_tow_csv]
+    C --> D[Initialize empty member_invoices list]
+    D --> E[For each tow_data in all_tow_data]
+    E --> F[Call MemberInvoiceItem.from_tow_data]
+    F --> G[Extend member_invoices with results]
+    G --> H{More tow_data?}
+    H -- Yes --> E
+    H -- No --> I[Export member_invoices to CSV with export_member_invoices_to_csv]
+    I --> J([End])
+----
+
+=== Deep Dive: Flow Chart for converter::convert_tow_ticket_to_vendor_bill
+
+[mermaid,convert-member-invoice-flow,svg]
+----
+flowchart TD
+    A[/Tow Ticket App CSV/]
+    A --> C[Read tow ticket CSV with TowDataItem.read_from_tow_csv]
+    C --> D[Initialize empty vendor_bill list]
+    D --> E[For each tow_data in all_tow_data]
+    E --> F[Call VendorBillItem.from_tow_data]
+    F --> G[Extend vendor_bill with results]
+    G --> H{More tow_data?}
+    H -- Yes --> E
+    H -- No --> I[Export vendor_bill to CSV with export_vendor_bills_to_csv]
+    I --> J([End])
+----
+
+== Development
+
+* Linting: `pylint`, `mypy`
+* Formatting: `autopep8`
+* Testing: `pytest`
+
+== License
+
+MIT License
+
+== Developer Guide
+
+. Clone the repository:
+----
+git clone <http path>
+-----
+
+. Install dependencies (Python 3.10+ recommended):
++
+----
+pip install -e '.[dev]'
+----
+
+. Run the Unit Tests:
++
+----
+pytest unit_tests/
+----
+
+
+
