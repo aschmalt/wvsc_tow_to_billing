@@ -1,11 +1,11 @@
-"""Module to define the MemberInvoice class for tow billing information and method to save"""
+"""Module to define the MemberInvoiceItem class for tow billing information and method to save"""
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
 from pathlib import Path
 import logging
 import csv
 from enum import Enum
-from tow_conversion import TowDataItem
+from tow_conversion.tow_data import TowDataItem
 
 log = logging.getLogger('MemberInvoice')
 
@@ -72,11 +72,11 @@ class MemberInvoiceItem:
 
         if not tow_data.flown_flag:
             log.warning(
-                f"Tow Data for ticket {tow_data.ticket} has not been flown. No invoice items will be created.")
+                "Tow Data for ticket %s has not been flown. No invoice items will be created.", tow_data.ticket)
             return items
         if not tow_data.closed_flag:
             log.warning(
-                f"Tow Data for ticket {tow_data.ticket} is not closed. No invoice items will be created.")
+                "Tow Data for ticket %s is not closed. No invoice items will be created.", tow_data.ticket)
             return items
 
         # Assuming last name is the first part of the pilot's name
@@ -89,8 +89,8 @@ class MemberInvoiceItem:
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                # description=f'Ticket #: {tow_data.ticket}, Glider: {tow_data.glider_id}, Glider Time: {tow_data.glider_time} hours',
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}',
+                # description=f'Ticket #: {tow_data.ticket}, Glider: {tow_data.glider_id}, Glider Time: {tow_data.glider_time} hours',  # pylint: disable=line-too-long
+                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}',  # pylint: disable=line-too-long
                 product=Product.GLIDER,
                 classification=Classification.GLIDER,
                 last_name=last_name,
@@ -156,7 +156,7 @@ def export_member_invoices_to_csv(filename: str | Path, invoices: list[MemberInv
                'SORT First Name',
                'Sum of Tow Fee']
 
-    with open(filename, 'w', newline='') as csvfile:
+    with open(filename, 'w', encoding='utf-8-sig', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(headers)
 

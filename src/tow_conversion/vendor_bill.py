@@ -1,10 +1,11 @@
+"""Module to define the VendorBillItem class for tow & intro billing information and method to save"""
 from pathlib import Path
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
 from enum import Enum
 import logging
 import csv
-from tow_conversion import TowDataItem
+from tow_conversion.tow_data import TowDataItem
 
 log = logging.getLogger('VendorBill')
 
@@ -67,11 +68,11 @@ class VendorBillItem:
 
         if not tow_data.flown_flag:
             log.warning(
-                f"Tow Data for ticket {tow_data.ticket} has not been flown. No invoice items will be created.")
+                "Tow Data for ticket %s has not been flown. No invoice items will be created.", tow_data.ticket)
             return items
         if not tow_data.closed_flag:
             log.warning(
-                f"Tow Data for ticket {tow_data.ticket} is not closed. No invoice items will be created.")
+                "Tow Data for ticket %s is not closed. No invoice items will be created.", tow_data.ticket)
             return items
 
         # Swap the tow pilot name to Last, First format
@@ -89,7 +90,7 @@ class VendorBillItem:
             bill_date=datetime.now(),
             due_date=datetime.now() + timedelta(days=30),
             service_date=tow_data.date_time,
-            memo=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, {tow_data.tow_plane} Pilot: {tow_data.pilot}',
+            memo=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, {tow_data.tow_plane} Pilot: {tow_data.pilot}',  # pylint: disable=line-too-long
             category=Category.TOW,
             classification=Classification.TOW,
             name=tow_pilot,
@@ -103,7 +104,7 @@ class VendorBillItem:
                 bill_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                memo=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}, {tow_data.guest}',
+                memo=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}, {tow_data.guest}',  # pylint: disable=line-too-long
                 category=Category.INTRO,
                 classification=Classification.INTRO,
                 name=tow_data.pilot,
@@ -152,7 +153,7 @@ def export_vendor_bills_to_csv(filename: str | Path, invoices: list[VendorBillIt
                'SORT NAME',
                'Sum of Category Details - Amount']
 
-    with open(filename, 'w', newline='') as csvfile:
+    with open(filename, 'w', encoding='utf-8-sig', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(headers)
 

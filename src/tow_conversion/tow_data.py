@@ -1,7 +1,9 @@
+"""Tow Data Item Class for Tow Ticket System CSV Import"""
 from collections.abc import Generator
 from datetime import datetime
 from dataclasses import dataclass, field
 from pathlib import Path
+import csv
 
 # from enum import Enum
 # class TowType(Enum):
@@ -96,10 +98,10 @@ class TowDataItem:
         if self.tow_speed <= 0:
             raise ValueError("Tow speed must be greater than 0.")
 
+    # pylint: disable=too-many-branches
     @classmethod
     def read_from_tow_csv(cls, file_path: str | Path) -> Generator['TowDataItem', str | Path, None]:
         """Read tow data from a CSV file and populate the instance."""
-        import csv
         with open(file_path, mode='r', encoding='ascii') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -169,4 +171,4 @@ class TowDataItem:
 
     def __repr__(self) -> str:
         """Official string representation of the TowData instance."""
-        return (f"TowDataItem(ticket={self.ticket})")
+        return f"TowDataItem(ticket={self.ticket})"
