@@ -156,7 +156,7 @@ def export_member_invoices_to_csv(filename: str | Path, invoices: list[MemberInv
                'SORT First Name',
                'Sum of Tow Fee']
 
-    with open(filename, 'w', encoding='utf-8-sig', newline='') as csvfile:
+    with open(filename, 'w', encoding='ascii', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(headers)
 
