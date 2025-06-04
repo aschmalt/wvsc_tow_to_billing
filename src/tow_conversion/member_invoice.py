@@ -1,7 +1,7 @@
 """Module to define the MemberInvoice class for tow billing information and method to save"""
-from collections.abc import Iterator
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
+from pathlib import Path
 import logging
 import csv
 from enum import Enum
@@ -74,9 +74,9 @@ class MemberInvoiceItem:
             log.warning(
                 f"Tow Data for ticket {tow_data.ticket} has not been flown. No invoice items will be created.")
             return items
-        if tow_data.closed_flag:
+        if not tow_data.closed_flag:
             log.warning(
-                f"Tow Data for ticket {tow_data.ticket} is closed. No invoice items will be created.")
+                f"Tow Data for ticket {tow_data.ticket} is not closed. No invoice items will be created.")
             return items
 
         # Assuming last name is the first part of the pilot's name
@@ -89,7 +89,8 @@ class MemberInvoiceItem:
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                description=f'Ticket #: {tow_data.ticket}, Glider: {tow_data.glider_id}, Glider Time: {tow_data.glider_time} hours',
+                # description=f'Ticket #: {tow_data.ticket}, Glider: {tow_data.glider_id}, Glider Time: {tow_data.glider_time} hours',
+                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}',
                 product=Product.GLIDER,
                 classification=Classification.GLIDER,
                 last_name=last_name,
@@ -117,7 +118,7 @@ class MemberInvoiceItem:
         return items
 
 
-def save_member_invoice(filename: str, invoices: Iterator[MemberInvoiceItem]) -> None:
+def export_member_invoices_to_csv(filename: str | Path, invoices: list[MemberInvoiceItem]) -> None:
     """
     Save the billing data to a CSV file.
 
@@ -125,8 +126,8 @@ def save_member_invoice(filename: str, invoices: Iterator[MemberInvoiceItem]) ->
     ----------
     filename : str
         The path to the CSV file where the invoice data will be saved.
-    items : Iterator[MemberInvoiceItem]
-        An iterator of MemberInvoiceItem objects representing the invoice items to be saved.
+    items : list[MemberInvoiceItem]
+        An list of MemberInvoiceItem objects representing the invoice items to be saved.
 
     Returns
     -------
@@ -159,10 +160,10 @@ def save_member_invoice(filename: str, invoices: Iterator[MemberInvoiceItem]) ->
         writer = csv.writer(csvfile)
         writer.writerow(headers)
 
-        for pilot, invoices in sorted(invoices_by_pilot.items()):
-            for idx, item in enumerate(sorted(invoices, lambda x: x.service_date)):
+        for pilot, pilot_invoices in sorted(invoices_by_pilot.items()):
+            for idx, item in enumerate(sorted(pilot_invoices, key=lambda x: x.service_date)):
                 if idx == 0:
-                    display_name = item.display_name
+                    display_name = pilot
                     invoice_date = item.invoice_date.strftime('%m/%d/%Y')
                     due_date = item.due_date.strftime('%m/%d/%Y')
                 else:
@@ -173,7 +174,7 @@ def save_member_invoice(filename: str, invoices: Iterator[MemberInvoiceItem]) ->
                     display_name,
                     invoice_date,
                     due_date,
-                    item.service_date.strftime('%m/%d/%Y'),
+                    item.service_date.strftime('%m/%d/%Y %H:%M'),
                     item.description,
                     item.product.value,
                     item.classification.value,

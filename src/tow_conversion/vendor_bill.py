@@ -1,4 +1,3 @@
-from collections.abc import Iterator
 from pathlib import Path
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
@@ -70,21 +69,30 @@ class VendorBillItem:
             log.warning(
                 f"Tow Data for ticket {tow_data.ticket} has not been flown. No invoice items will be created.")
             return items
-        if tow_data.closed_flag:
+        if not tow_data.closed_flag:
             log.warning(
-                f"Tow Data for ticket {tow_data.ticket} is closed. No invoice items will be created.")
+                f"Tow Data for ticket {tow_data.ticket} is not closed. No invoice items will be created.")
             return items
+
+        # Swap the tow pilot name to Last, First format
+        tow_pilot = tow_data.tow_pilot
+        if tow_pilot:
+            names = tow_data.tow_pilot.split()
+            if len(names) > 1:
+                tp_first_name = ' '.join(names[:-1])
+                tp_last_name = names[-1]
+                tow_pilot = f'{tp_last_name}, {tp_first_name}'
 
         # Tow Pilot Expense
         tow_bill = VendorBillItem(
-            vendor_name=tow_data.tow_pilot,
+            vendor_name=tow_pilot,
             bill_date=datetime.now(),
             due_date=datetime.now() + timedelta(days=30),
             service_date=tow_data.date_time,
             memo=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, {tow_data.tow_plane} Pilot: {tow_data.pilot}',
             category=Category.TOW,
             classification=Classification.TOW,
-            name=tow_data.tow_pilot,
+            name=tow_pilot,
         )
         items.append(tow_bill)
 
@@ -95,7 +103,7 @@ class VendorBillItem:
                 bill_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                memo=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, Glider: {tow_data.glider_id}, {tow_data.guest}',
+                memo=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}, {tow_data.guest}',
                 category=Category.INTRO,
                 classification=Classification.INTRO,
                 name=tow_data.pilot,
@@ -107,7 +115,7 @@ class VendorBillItem:
         return items
 
 
-def save_vendor_bill(filename: str | Path, items: Iterator[VendorBillItem]) -> None:
+def export_vendor_bills_to_csv(filename: str | Path, invoices: list[VendorBillItem]) -> None:
     """
     Save the vendor bill data to a CSV file.
 
@@ -115,8 +123,8 @@ def save_vendor_bill(filename: str | Path, items: Iterator[VendorBillItem]) -> N
     ----------
     filename : str or Path
         The path to the CSV file where the vendor bill data will be saved.
-    items : Iterator[VendorBillItem]
-        An iterator of VendorBillItem objects representing the items to be saved.
+    items : list[VendorBillItem]
+        An list of VendorBillItem objects representing the items to be saved.
 
     Returns
     -------
@@ -126,3 +134,47 @@ def save_vendor_bill(filename: str | Path, items: Iterator[VendorBillItem]) -> N
     -----
     This method writes the provided vendor bill items to the specified CSV file.
     """
+    invoices_by_vendor: dict[str, list[VendorBillItem]] = dict()
+    for item in invoices:
+        key = item.vendor_name
+        # Group items by vendor name (pilot)
+        if key not in invoices_by_vendor:
+            invoices_by_vendor[key] = list()
+        invoices_by_vendor[key].append(item)
+
+    headers = ['Vendor Name',
+               'Bill Date',
+               'Due Date2',
+               'Service Date',
+               'Category Details - Memo',
+               'Category Details - Category',
+               'CLASS',
+               'SORT NAME',
+               'Sum of Category Details - Amount']
+
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(headers)
+
+        for pilot, pilot_invoices in sorted(invoices_by_vendor.items()):
+            for idx, item in enumerate(sorted(pilot_invoices, key=lambda x: x.service_date)):
+                if idx == 0:
+                    vendor_name = f'{pilot}.'
+                    invoice_date = item.bill_date.strftime('%m/%d/%Y')
+                    due_date = item.due_date.strftime('%m/%d/%Y')
+                else:
+                    vendor_name = ''
+                    invoice_date = ''
+                    due_date = ''
+                row = [
+                    vendor_name,
+                    invoice_date,
+                    due_date,
+                    item.service_date.strftime('%m/%d/%Y %H:%M'),
+                    item.memo,
+                    item.category.value,
+                    item.classification.value,
+                    item.name,
+                    f"${item.amount:.2f}"
+                ]
+                writer.writerow(row)

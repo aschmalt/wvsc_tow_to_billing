@@ -113,41 +113,42 @@ class TowDataItem:
                     'tow_type': row['Tow Type'],
                 }
 
-                if 'Flight Brief' in row:
+                if row.get('Flight Brief', None):
                     inputs['flight_brief'] = row['Flight Brief']
-                if 'CFIG' in row:   # Optional field
+                if row.get('CFIG', None):
                     inputs['cfig'] = row['CFIG']
-                if 'Guest' in row:  # Optional field
+                if row.get('Guest', None):
                     inputs['guest'] = row['Guest']
-                if 'Billable Rental' in row:
+                if row.get('Billable Rental', None):
                     inputs['billable_rental'] = row['Billable Rental'] == '1'
-                if 'Billable Tow' in row:
+                if row.get('Billable Tow', None):
                     inputs['billable_tow'] = row['Billable Tow'] == '1'
-                if 'Tow Speed' in row:
+                if row.get('Tow Speed', None):
                     inputs['tow_speed'] = int(row['Tow Speed'])
-                if 'Alt Required' in row:
+                if row.get('Alt Required', None):
                     inputs['alt_required'] = int(row['Alt Required'])
-                if 'Release Alt' in row:
+                if row.get('Release Alt', None):
                     inputs['release_alt'] = int(row['Release Alt'])
-                if 'Glider Time' in row:
+                if row.get('Glider Time', None):
                     inputs['glider_time'] = float(row['Glider Time'])
-                if 'Tow Fee' in row:
-                    inputs['tow_fee'] = float(row['Tow Fee'])
-                if 'Glider Rental' in row:
-                    inputs['rental_fee'] = float(row['Glider Rental'])
-                if 'Remarks' in row:
+                if row.get('Tow Fee', None):
+                    inputs['tow_fee'] = float(row['Tow Fee'].lstrip('$'))
+                if row.get('Glider Rental', None):
+                    inputs['rental_fee'] = float(
+                        row['Glider Rental'].lstrip('$'))
+                if row.get('Remarks', None):
                     inputs['remarks'] = row['Remarks']
-                if 'Certificate' in row:
+                if row.get('Certificate', None):
                     inputs['certificate'] = row['Certificate']
-                if 'Tow Pilot' in row:
+                if row.get('Tow Pilot', None):
                     inputs['tow_pilot'] = row['Tow Pilot']
-                if 'Tow Plane' in row:
+                if row.get('Tow Plane', None):
                     inputs['tow_plane'] = row['Tow Plane']
-                if 'Guest' in row:
+                if row.get('Guest', None):
                     inputs['guest'] = row['Guest']
-                if 'Flown Flag' in row:
+                if row.get('Flown Flag', None):
                     inputs['flown_flag'] = row.get('Flown Flag', None) == '1'
-                if 'Closed Flag' in row:
+                if row.get('Closed Flag', None):
                     inputs['closed_flag'] = row.get('Closed Flag', None) == '1'
 
                 yield cls(**inputs)
