@@ -21,7 +21,7 @@ def convert_tow_ticket_to_member_invoice(tow_ticket_file: str | Path, output_fil
     output_file : Path
         Path to the output member invoice CSV file.
     """
-    log.info(f"Converting {tow_ticket_file} to {output_file}")
+    log.info("Converting %s to %s", tow_ticket_file, output_file)
 
     all_tow_data = TowDataItem.read_from_tow_csv(tow_ticket_file)
     member_invoices: list[MemberInvoiceItem] = list()
@@ -43,7 +43,7 @@ def convert_tow_ticket_to_vendor_bill(tow_ticket_file: str | Path, output_file: 
     output_file : Path
         Path to the output vendor bill CSV file.
     """
-    log.info(f"Converting {tow_ticket_file} to {output_file}")
+    log.info("Converting %s to %s", tow_ticket_file, output_file)
 
     all_tow_data = TowDataItem.read_from_tow_csv(tow_ticket_file)
     vendor_bills: list[VendorBillItem] = list()
