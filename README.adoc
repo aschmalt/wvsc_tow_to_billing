@@ -44,7 +44,6 @@ UNDER DEVELOPMENT
 Below is a high-level overview of the main classes and their relationships:
 
 === Deep Dive: Flow Chart for converter::convert_tow_ticket_to_member_invoice
-
 ```mermaid
 flowchart TD
     A[/Tow Ticket App CSV/]
@@ -61,8 +60,7 @@ flowchart TD
 
 === Deep Dive: Flow Chart for converter::convert_tow_ticket_to_vendor_bill
 
-[mermaid,convert-member-invoice-flow,svg]
-----
+```mermaid
 flowchart TD
     A[/Tow Ticket App CSV/]
     A --> C[Read tow ticket CSV with TowDataItem.read_from_tow_csv]
@@ -74,7 +72,7 @@ flowchart TD
     H -- Yes --> E
     H -- No --> I[Export vendor_bill to CSV with export_vendor_bills_to_csv]
     I --> J([End])
-----
+```
 
 == Development
 
