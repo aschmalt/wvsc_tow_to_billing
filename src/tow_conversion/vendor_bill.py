@@ -27,7 +27,7 @@ class VendorBillItem(Invoice):
     """Class to hold vendor bill data for a tow."""
 
     @classmethod
-    def from_tow_data(cls, tow_data: TowDataItem) -> list['VendorBillItem']:
+    def from_tow_data(cls, tow_data: TowDataItem, log_unbillable_tow_tickets: bool = True) -> list['VendorBillItem']:
         """
         Create a VendorBillItem from a TowDataItem.
 
@@ -35,6 +35,10 @@ class VendorBillItem(Invoice):
         ----------
         tow_data : TowDataItem
             The TowDataItem instance containing the tow data.
+        log_unbillable_tow_tickets : bool
+            Optional, default=True
+            If True, log a warning if the tow ticket is not completed and no items are created.
+            If False, suppress warnings for unbillable tow tickets.
 
         Returns
         -------
@@ -42,7 +46,7 @@ class VendorBillItem(Invoice):
             A list of VendorBillItem instances created from the provided TowDataItem.
         """
         items: list[VendorBillItem] = list()
-        if not cls.is_tow_ticket_completed(tow_data):
+        if not cls.is_tow_ticket_completed(tow_data, log_warnings=log_unbillable_tow_tickets):
             return items
 
         if tow_data.tow_pilot:

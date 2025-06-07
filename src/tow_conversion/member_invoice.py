@@ -27,7 +27,7 @@ class MemberInvoiceItem(Invoice):
     """Class to hold member invoice data for a tow."""
 
     @classmethod
-    def from_tow_data(cls, tow_data: TowDataItem) -> list['MemberInvoiceItem']:
+    def from_tow_data(cls, tow_data: TowDataItem, log_unbillable_tow_tickets: bool = True) -> list['MemberInvoiceItem']:
         """
         Create a MemberInvoiceItem from a TowDataItem.
 
@@ -35,6 +35,10 @@ class MemberInvoiceItem(Invoice):
         ----------
         tow_data : TowDataItem
             The TowDataItem instance containing the tow data.
+        log_unbillable_tow_tickets : bool
+            Optional, default=True
+            If True, log a warning if the tow ticket is not completed and no items are created.
+            If False, suppress warnings for unbillable tow tickets.
 
         Returns
         -------
@@ -45,7 +49,7 @@ class MemberInvoiceItem(Invoice):
         """
         items: list[MemberInvoiceItem] = list()
 
-        if not cls.is_tow_ticket_completed(tow_data):
+        if not cls.is_tow_ticket_completed(tow_data, log_warnings=log_unbillable_tow_tickets):
             return items
 
         if tow_data.billable_rental:
@@ -55,8 +59,8 @@ class MemberInvoiceItem(Invoice):
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                # description=f'Ticket #: {tow_data.ticket}, Glider: {tow_data.glider_id}, Glider Time: {tow_data.glider_time} hours',  # pylint: disable=line-too-long
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}',  # pylint: disable=line-too-long
+                description=f'Ticket #: {tow_data.ticket}, Glider: {tow_data.glider_id}, Glider Time: {tow_data.glider_time} hours',  # pylint: disable=line-too-long
+                # description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}',  # pylint: disable=line-too-long
                 product=Product.GLIDER,
                 classification=Classification.GLIDER,
                 amount=tow_data.rental_fee

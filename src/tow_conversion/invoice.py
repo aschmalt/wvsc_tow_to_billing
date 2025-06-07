@@ -74,13 +74,16 @@ class Invoice(ABC):
         return self._name
 
     @staticmethod
-    def is_tow_ticket_completed(tow_data: TowDataItem) -> bool:
+    def is_tow_ticket_completed(tow_data: TowDataItem, log_warnings: bool = True) -> bool:
         """
         Checks whether a tow ticket is completed based on flown and closed flags.
         Parameters
         ----------
         tow_data : TowDataItem
             The tow data item containing ticket information and status flags.
+        show_warnings : bool, optional
+            If False, suppresses warning logs for unflown or unclosed tickets.
+            Defaults to True, which will log warnings if the ticket is not completed.
         Returns
         -------
         bool
@@ -88,11 +91,13 @@ class Invoice(ABC):
         """
 
         if not tow_data.flown_flag:
-            log.warning(
-                "Tow Data for ticket %s has not been flown. No invoice items will be created.", tow_data.ticket)
+            if log_warnings:
+                log.warning(
+                    "Tow Data for ticket %s has not been flown. No invoice items will be created.", tow_data.ticket)
             return False
         if not tow_data.closed_flag:
-            log.warning(
-                "Tow Data for ticket %s is not closed. No invoice items will be created.", tow_data.ticket)
+            if log_warnings:
+                log.warning(
+                    "Tow Data for ticket %s is not closed. No invoice items will be created.", tow_data.ticket)
             return False
         return True

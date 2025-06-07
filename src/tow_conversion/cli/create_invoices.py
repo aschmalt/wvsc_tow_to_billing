@@ -2,9 +2,17 @@
 import argparse
 from pathlib import Path
 import sys
-from tow_conversion import (
-    convert_tow_ticket_to_member_invoice,
-    convert_tow_ticket_to_vendor_bill,
+import logging
+from tow_conversion import convert_tow_ticket_to_all_invoices
+
+
+# Remove all handlers associated with the root logger object.
+for handler in logging.root.handlers[:]:
+    logging.root.removeHandler(handler)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s: %(message)s"
 )
 
 
@@ -41,16 +49,12 @@ def main() -> None:
                 f"Error: Output file {output_file} already exists. Use --overwrite to overwrite.", file=sys.stderr)
             sys.exit(1)
 
-    convert_tow_ticket_to_member_invoice(
+    convert_tow_ticket_to_all_invoices(
         tow_ticket_file=input_file,
-        output_file=member_invoice_file
+        member_invoice_file=member_invoice_file,
+        vendor_invoice_file=vendor_bill_file
     )
     print(f"Member invoice written to {member_invoice_file}")
-
-    convert_tow_ticket_to_vendor_bill(
-        tow_ticket_file=input_file,
-        output_file=vendor_bill_file
-    )
     print(f"Vendor bill written to {vendor_bill_file}")
 
 
