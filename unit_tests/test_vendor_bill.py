@@ -4,6 +4,7 @@ import csv
 from datetime import datetime, timedelta
 
 from tow_conversion import TowDataItem
+from tow_conversion.name import Name
 from tow_conversion.vendor_bill import (
     VendorBillItem,
     Category,
@@ -16,9 +17,9 @@ def create_dummy_tow_data_item(**kwargs) -> TowDataItem:
     """Create a dummy TowDataItem with default values, allowing for overrides."""
     settings = {'flown_flag': True,
                 'closed_flag': True,
-                'pilot': "Smith, John",
+                'pilot': Name("Smith, John"),
                 'ticket': "123",
-                'tow_pilot': "Jane Doe",
+                'tow_pilot': Name("Doe, Jane"),
                 'tow_plane': "Cessna 172",
                 'glider_id': "G1",
                 'glider_time': 1.5,
@@ -39,14 +40,13 @@ def create_dummy_tow_data_item(**kwargs) -> TowDataItem:
 
 def test_vendor_bill_item_positive_amount() -> None:
     item = VendorBillItem(
-        vendor_name="Last, First",
-        bill_date=datetime.now(),
+        name="Last, First",
+        invoice_date=datetime.now(),
         due_date=datetime.now(),
         service_date=datetime.now(),
-        memo="Test memo",
+        description="Test memo",
         category=Category.TOW,
         classification=Classification.TOW,
-        name="Last, First",
         amount=100.0
     )
     assert item.amount == 100.0
@@ -55,14 +55,13 @@ def test_vendor_bill_item_positive_amount() -> None:
 def test_vendor_bill_item_negative_amount_raises() -> None:
     with pytest.raises(ValueError):
         VendorBillItem(
-            vendor_name="Vendor",
-            bill_date=datetime.now(),
+            name="Vendor",
+            invoice_date=datetime.now(),
             due_date=datetime.now(),
             service_date=datetime.now(),
-            memo="Test memo",
+            description="Test memo",
             category=Category.TOW,
             classification=Classification.TOW,
-            name="Vendor",
             amount=-1.0
         )
 
@@ -85,20 +84,18 @@ def test_from_tow_data_returns_tow_and_intro_items() -> None:
     assert len(items) == 2
     item1, item2 = items
     assert item1.category == Category.TOW
-    assert item1.vendor_name == 'Doe, Jane'
-    assert item1.name == 'Doe, Jane'
+    assert str(item1.name) == 'Doe, Jane'
     assert item1.amount == 10.00
     assert item1.service_date == tow_data.date_time
     assert item1.classification == Classification.TOW
-    assert item1.memo == 'Ticket #: 123, Release Alt: 3000, Cessna 172 Pilot: Smith, John'
+    assert item1.description == 'Ticket #: 123, Release Alt: 3000, Cessna 172 Pilot: Smith, John'
 
     assert item2.category == Category.INTRO
-    assert item2.vendor_name == tow_data.pilot
-    assert item2.name == tow_data.pilot
+    assert str(item2.name) == tow_data.pilot
     assert item2.amount == 10.00
     assert item2.service_date == tow_data.date_time
     assert item2.classification == Classification.INTRO
-    assert item2.memo == 'Ticket #: 123, Release Alt: 3000 Glider: G1, my Guest'
+    assert item2.description == 'Ticket #: 123, Release Alt: 3000 Glider: G1, my Guest'
 
 
 def test_from_tow_data_returns_only_tow_if_not_intro() -> None:
@@ -107,45 +104,41 @@ def test_from_tow_data_returns_only_tow_if_not_intro() -> None:
     assert len(items) == 1
     item = items[0]
     assert item.category == Category.TOW
-    assert item.vendor_name == 'Doe, Jane'
-    assert item.name == 'Doe, Jane'
+    assert str(item.name) == 'Doe, Jane'
     assert item.amount == 10.00
     assert item.service_date == tow_data.date_time
     assert item.classification == Classification.TOW
-    assert item.memo == 'Ticket #: 123, Release Alt: 3000, Cessna 172 Pilot: Smith, John'
+    assert item.description == 'Ticket #: 123, Release Alt: 3000, Cessna 172 Pilot: Smith, John'
 
 
 def test_export_vendor_bills_to_csv_creates_file_and_content(tmp_path: Path) -> None:
     # Prepare items
     now = datetime(2008, 6, 18, 11, 23, 34)
     item1 = VendorBillItem(
-        vendor_name="VendorA",
-        bill_date=now,
+        invoice_date=now,
         due_date=now + timedelta(days=30),
         service_date=now,
-        memo="Memo1",
+        description="Memo1",
         category=Category.TOW,
         classification=Classification.TOW,
         name="VendorA",
         amount=50.0
     )
     item2 = VendorBillItem(
-        vendor_name="VendorA",
-        bill_date=now,
+        invoice_date=now,
         due_date=now + timedelta(days=30),
         service_date=now + timedelta(days=1),
-        memo="Memo2",
+        description="Memo2",
         category=Category.INTRO,
         classification=Classification.INTRO,
         name="VendorA",
         amount=75.0
     )
     item3 = VendorBillItem(
-        vendor_name="VendorB",
-        bill_date=now,
+        invoice_date=now,
         due_date=now + timedelta(days=30),
         service_date=now,
-        memo="Memo3",
+        description="Memo3",
         category=Category.TOW,
         classification=Classification.TOW,
         name="VendorB",
@@ -174,11 +167,10 @@ def test_export_vendor_bills_to_csv_creates_file_and_content(tmp_path: Path) -> 
 def test_export_vendor_bills_to_csv_accepts_path_object(tmp_path: Path) -> None:
     now = datetime(2024, 1, 1)
     item = VendorBillItem(
-        vendor_name="Vendor",
-        bill_date=now,
+        invoice_date=now,
         due_date=now + timedelta(days=30),
         service_date=now,
-        memo="Memo",
+        description="Memo",
         category=Category.TOW,
         classification=Classification.TOW,
         name="Vendor",

@@ -1,11 +1,15 @@
 [MASTER]
-ignore=venv
+ignore=unit_tests,.venv
 
 [FORMAT]
 max-line-length=120
 
-# [MESSAGES CONTROL]
-# disable=
+[MESSAGES CONTROL]
+disable=
+    R1734, # use-list-literal
+    R1735, # use-dict-literal
+    R0902, # too-many-instance-attributes
+
 #     C0114,  # missing-module-docstring
 #     C0115,  # missing-class-docstring
 #     C0116   # missing-function-docstring

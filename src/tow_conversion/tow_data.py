@@ -1,7 +1,10 @@
+"""Tow Data Item Class for Tow Ticket System CSV Import"""
 from collections.abc import Generator
 from datetime import datetime
 from dataclasses import dataclass, field
 from pathlib import Path
+import csv
+from tow_conversion.name import Name
 
 # from enum import Enum
 # class TowType(Enum):
@@ -35,8 +38,8 @@ class TowDataItem:
         metadata={"description": "Unique identifier for the tow ticket"})
     date_time: datetime = field(
         metadata={"description": "Date and time of the tow ticket in ISO 8601 format"})
-    pilot: str = field(
-        metadata={"description": "Name of the pilot or bill to"})
+    pilot: Name = field(
+        metadata={"description": "Name of the pilot"})
     airport: str = field(metadata={"description": "Airport code"})
     category: str = field(metadata={"description": "Category of the tow"})
     glider_id: str = field(metadata={"description": "ID of the glider used"})
@@ -69,8 +72,8 @@ class TowDataItem:
                          "description": "Remarks or notes about the tow"})
     certificate: str = field(default="", metadata={
                              "description": "Gift certificate information, if applicable"})
-    tow_pilot: str = field(default="", metadata={
-                           "description": "Name of the tow pilot"})
+    tow_pilot: Name | None = field(default=None, metadata={
+        "description": "Name of the tow pilot"})
     tow_plane: str = field(default="", metadata={
                            "description": "Tow plane used"})
     flown_flag: bool = field(default=False, metadata={
@@ -97,16 +100,15 @@ class TowDataItem:
             raise ValueError("Tow speed must be greater than 0.")
 
     @classmethod
-    def read_from_tow_csv(cls, file_path: str | Path) -> Generator['TowDataItem', str | Path, None]:
+    def read_from_tow_csv(cls, file_path: str | Path) -> Generator['TowDataItem', str | Path, None]:  # pylint: disable=too-many-branches
         """Read tow data from a CSV file and populate the instance."""
-        import csv
-        with open(file_path, mode='r', encoding='ascii') as file:
+        with open(file_path, mode='r', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 inputs = {
                     'ticket': int(row['Ticket #']),
                     'date_time': datetime.fromisoformat(row['Date Time']),
-                    'pilot': row['Bill To/Pilot'],
+                    'pilot': Name(row['Bill To/Pilot']),
                     'airport': row['Airport'],
                     'category': row['Category'],
                     'glider_id': row['Glider ID'],
@@ -141,7 +143,7 @@ class TowDataItem:
                 if row.get('Certificate', None):
                     inputs['certificate'] = row['Certificate']
                 if row.get('Tow Pilot', None):
-                    inputs['tow_pilot'] = row['Tow Pilot']
+                    inputs['tow_pilot'] = Name(row['Tow Pilot'])
                 if row.get('Tow Plane', None):
                     inputs['tow_plane'] = row['Tow Plane']
                 if row.get('Guest', None):
@@ -169,4 +171,4 @@ class TowDataItem:
 
     def __repr__(self) -> str:
         """Official string representation of the TowData instance."""
-        return (f"TowDataItem(ticket={self.ticket})")
+        return f"TowDataItem(ticket={self.ticket})"

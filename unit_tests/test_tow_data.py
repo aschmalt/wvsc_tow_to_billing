@@ -1,7 +1,7 @@
 import pytest
-from tow_conversion import TowDataItem
 from datetime import datetime
 from tow_conversion.tow_data import TowDataItem
+from tow_conversion.name import Name
 
 
 def valid_tow_kwargs() -> dict[str, int | datetime | str | float]:
@@ -140,4 +140,7 @@ def test_read_from_tow_csv(tmp_path) -> None:
     assert isinstance(tow_instance, TowDataItem)
     for key, value in tow_data.items():
         got = getattr(tow_instance, key)
+        if isinstance(got, Name) and isinstance(value, str):
+            # If the attribute is a Name object, compare its corresponding Name object
+            value = Name(value)
         assert got == value, f"Expected {key} to be {value}, got {got}"
