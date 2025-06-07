@@ -2,7 +2,8 @@ from pathlib import Path
 import pytest
 import csv
 from tow_conversion import (convert_tow_ticket_to_member_invoice,
-                            convert_tow_ticket_to_vendor_bill)
+                            convert_tow_ticket_to_vendor_bill,
+                            convert_tow_ticket_to_all_invoices)
 
 
 @pytest.fixture
@@ -85,3 +86,65 @@ def test_convert_vendor_bills(sample_data_dir: Path, tmp_path: Path) -> None:
                     'Sum of Category Details - Amount']:
             assert output_row[key].strip() == golden_row[key].strip(), \
                 f"{key} mismatch in output file and golden file in row {output_row}"
+
+
+def test_convert_all_invoices(sample_data_dir: Path, tmp_path: Path) -> None:
+    input_file = sample_data_dir / 'tow_ticket_output.csv'
+    assert input_file.exists(), \
+        f"Input file {input_file} does not exist."
+    golden_member_file = sample_data_dir / 'member_invoice.csv'
+    assert golden_member_file.exists(), \
+        f"Golden member invoice file {golden_member_file} does not exist."
+    golden_vendor_file = sample_data_dir / 'vendor_bill.csv'
+    assert golden_vendor_file.exists(), \
+        f"Golden vendor bill file {golden_vendor_file} does not exist."
+
+    member_output_file = tmp_path / 'member_invoice_output.csv'
+    vendor_output_file = tmp_path / 'vendor_bill_output.csv'
+
+    convert_tow_ticket_to_all_invoices(tow_ticket_file=input_file,
+                                       member_invoice_file=member_output_file,
+                                       vendor_invoice_file=vendor_output_file)
+
+    with open(member_output_file, 'r', encoding='utf-8') as output_f:
+        output_data = list(csv.DictReader(output_f))
+
+    with open(golden_member_file, 'r', encoding='utf-8-sig') as golden_f:
+        golden_data = list(csv.DictReader(golden_f))
+
+    assert len(output_data) == len(golden_data), \
+        f"Member invoice output file {member_output_file} has {len(output_data)} rows, expected {len(golden_data)} rows."
+
+    for output_row, golden_row in zip(output_data, golden_data):
+        for key in ['Display Name',
+                    # 'Invoice Date',
+                    # 'Due Date',
+                    'Service Date',
+                    'Description or Memo',
+                    'Product',
+                    'CLASS',
+                    'SORT Last Name',
+                    'SORT First Name',
+                    'Sum of Tow Fee']:
+            assert output_row[key].strip() == golden_row[key].strip(), \
+                f"{key} mismatch in member invoice output file and golden file in row {output_row}"
+
+    with open(vendor_output_file, 'r', encoding='utf-8') as output_f:
+        output_data = list(csv.DictReader(output_f))
+
+    with open(golden_vendor_file, 'r', encoding='utf-8-sig') as golden_f:
+        golden_data = list(csv.DictReader(golden_f))
+
+    assert len(output_data) == len(golden_data), \
+        f"Vendor bill output file {vendor_output_file} has {len(output_data)} rows, expected {len(golden_data)} rows."
+    for output_row, golden_row in zip(output_data, golden_data):
+        for key in ['Vendor Name',
+                    # 'Bill Date',
+                    # 'Due Date2',
+                    'Service Date',
+                    'Category Details - Memo',
+                    'Category Details - Category',
+                    'CLASS', 'SORT NAME',
+                    'Sum of Category Details - Amount']:
+            assert output_row[key].strip() == golden_row[key].strip(), \
+                f"{key} mismatch in vendor bill output file and golden file in row {output_row}"

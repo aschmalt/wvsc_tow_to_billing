@@ -102,7 +102,7 @@ class TowDataItem:
     @classmethod
     def read_from_tow_csv(cls, file_path: str | Path) -> Generator['TowDataItem', str | Path, None]:  # pylint: disable=too-many-branches
         """Read tow data from a CSV file and populate the instance."""
-        with open(file_path, mode='r', encoding='ascii') as file:
+        with open(file_path, mode='r', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 inputs = {
