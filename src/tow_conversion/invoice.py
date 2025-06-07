@@ -81,7 +81,7 @@ class Invoice(ABC):
         ----------
         tow_data : TowDataItem
             The tow data item containing ticket information and status flags.
-        show_warnings : bool, optional
+        log_warnings : bool, optional
             If False, suppresses warning logs for unflown or unclosed tickets.
             Defaults to True, which will log warnings if the ticket is not completed.
         Returns

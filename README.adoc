@@ -12,7 +12,7 @@ The command line interface allows users to convert tow ticket CSV files into bil
 
 [source,sh]
 ----
-python create_invoices.py <tow_ticket_csv> [--overwrite]
+python -m tow_conversion.cli.create_invoices <tow_ticket_csv> [--overwrite]
 ----
 
 *Arguments:*
