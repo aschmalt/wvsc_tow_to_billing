@@ -9,7 +9,7 @@ disable=
     R1734, # use-list-literal
     R1735, # use-dict-literal
     R0902, # too-many-instance-attributes
-    E0401, # import-error
+# 12:     E0401, # import-error
 
 #     C0114,  # missing-module-docstring
 #     C0115,  # missing-class-docstring
