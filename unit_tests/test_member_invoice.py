@@ -37,15 +37,13 @@ def create_dummy_tow_data_item(**kwargs) -> TowDataItem:
 def test_member_invoice_item_post_init_negative_amount() -> None:
     with pytest.raises(ValueError):
         MemberInvoiceItem(
-            display_name="Smith, John",
+            name="Smith, John",
             invoice_date=datetime.now(),
             due_date=datetime.now(),
             service_date=datetime.now(),
             description="desc",
             product=Product.TOW,
             classification=Classification.TOW,
-            last_name="Smith",
-            first_name="John",
             amount=-1.0,
         )
 
@@ -56,8 +54,8 @@ def test_member_invoice_item_from_tow_data_both_items() -> None:
     assert len(items) == 2
     assert any(i.product == Product.GLIDER for i in items)
     assert any(i.product == Product.TOW for i in items)
-    assert all(i.last_name == "Smith" and
-               i.first_name == "John" for i in items)
+    assert all(i.name.last == "Smith" and
+               i.name.first == "John" for i in items)
 
 
 def test_member_invoice_item_from_tow_data_only_tow() -> None:
@@ -93,32 +91,28 @@ def test_save_member_invoice_creates_csv(tmp_path: Path) -> None:
     now = datetime(2024, 6, 1, 17, 23, 34)
     items = [
         MemberInvoiceItem(
-            display_name="Smith, John",
+            name="Smith, John",
             invoice_date=now,
             due_date=now + timedelta(days=30),
             service_date=now,
             description="desc1",
             product=Product.TOW,
             classification=Classification.TOW,
-            last_name="Smith",
-            first_name="John",
             amount=100.0,
         ),
         MemberInvoiceItem(
-            display_name="Doe, Jane",
+            name="Doe, Jane",
             invoice_date=now,
             due_date=now + timedelta(days=30),
             service_date=now,
             description="desc2",
             product=Product.GLIDER,
             classification=Classification.GLIDER,
-            last_name="Doe",
-            first_name="Jane",
             amount=50.0,
         ),
     ]
     csv_file_output = tmp_path / "test_invoice.csv"
-    export_member_invoices_to_csv(str(csv_file_output), iter(items))
+    export_member_invoices_to_csv(str(csv_file_output), items)
     with open(csv_file_output, newline='') as f:
         reader = list(csv.reader(f))
     assert reader[0] == [
@@ -144,30 +138,27 @@ def test_save_member_invoice_groups_by_display_name(tmp_path) -> None:
     now = datetime(2024, 6, 1)
     items = [
         MemberInvoiceItem(
-            display_name="Smith, John",
+            name="Smith, John",
             invoice_date=now,
             due_date=now + timedelta(days=30),
             service_date=now,
             description="desc1",
             product=Product.TOW,
             classification=Classification.TOW,
-            last_name="Smith",
-            first_name="John",
             amount=100.0,
         ),
         MemberInvoiceItem(
-            display_name="Smith, John",
+            name="Smith, John",
             invoice_date=now,
             due_date=now + timedelta(days=30),
             service_date=now + timedelta(days=1),
             description="desc2",
             product=Product.GLIDER,
             classification=Classification.GLIDER,
-            last_name="Smith",
-            first_name="John",
             amount=50.0,
         ),
     ]
+
     filename = tmp_path / "test_invoice_group.csv"
     export_member_invoices_to_csv(str(filename), iter(items))
     with open(filename, newline='') as f:

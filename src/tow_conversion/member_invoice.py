@@ -1,11 +1,12 @@
 """Module to define the MemberInvoiceItem class for tow billing information and method to save"""
 from datetime import datetime, timedelta
-from dataclasses import dataclass, field
 from pathlib import Path
 import logging
 import csv
 from enum import Enum
 from tow_conversion.tow_data import TowDataItem
+from tow_conversion.invoice import Invoice
+from tow_conversion.name import Name
 
 log = logging.getLogger('MemberInvoice')
 
@@ -22,34 +23,8 @@ class Classification(Enum):
     GLIDER = "GLIDER"
 
 
-@dataclass
-class MemberInvoiceItem:
+class MemberInvoiceItem(Invoice):
     """Class to hold member invoice data for a tow."""
-    display_name: str = field(
-        metadata={"description": "Display name for who to bill in the invoice"})
-    invoice_date: datetime = field(
-        metadata={"description": "Date of the invoice in '%m/%d/%Y' format"})
-    due_date: datetime = field(
-        metadata={"description": "Due date for the invoice in '%m/%d/%Y' format"})
-    service_date: datetime = field(
-        metadata={"description": "Date of service in '%m/%d/%Y' format"})
-    description: str = field(
-        metadata={"description": "Description of the service provided"})
-    product: Product = field(
-        metadata={"description": "Product or service type"})
-    classification: Classification = field(
-        metadata={"description": "Classification of the service"})
-    last_name: str = field(
-        metadata={"description": "Last name of the member"})
-    first_name: str = field(
-        metadata={"description": "First name of the member"})
-    amount: float = field(
-        metadata={"description": "Amount charged for the service in dollars"})
-
-    def __post_init__(self) -> None:
-        """Post-initialization validation for the MemberInvoiceItem class."""
-        if self.amount < 0:
-            raise ValueError("Amount must be a non-negative value.")
 
     @classmethod
     def from_tow_data(cls, tow_data: TowDataItem) -> list['MemberInvoiceItem']:
@@ -70,21 +45,12 @@ class MemberInvoiceItem:
         """
         items: list[MemberInvoiceItem] = list()
 
-        if not tow_data.flown_flag:
-            log.warning(
-                "Tow Data for ticket %s has not been flown. No invoice items will be created.", tow_data.ticket)
+        if not cls.is_tow_ticket_completed(tow_data):
             return items
-        if not tow_data.closed_flag:
-            log.warning(
-                "Tow Data for ticket %s is not closed. No invoice items will be created.", tow_data.ticket)
-            return items
-
-        # Assuming last name is the first part of the pilot's name
-        last_name, first_name = [x.strip() for x in tow_data.pilot.split(',')]
 
         if tow_data.billable_rental:
             item = cls(
-                display_name=tow_data.pilot,
+                name=tow_data.pilot,
                 # Set invoice_date to now, due_date to 30 days after invoice_date
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
@@ -93,15 +59,13 @@ class MemberInvoiceItem:
                 description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}',  # pylint: disable=line-too-long
                 product=Product.GLIDER,
                 classification=Classification.GLIDER,
-                last_name=last_name,
-                first_name=first_name,
                 amount=tow_data.rental_fee
             )
             items.append(item)
 
         if tow_data.billable_tow:
             item = cls(
-                display_name=tow_data.pilot,
+                name=tow_data.pilot,
                 # Set invoice_date to now, due_date to 30 days after invoice_date
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
@@ -109,8 +73,6 @@ class MemberInvoiceItem:
                 description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}',
                 product=Product.TOW,
                 classification=Classification.TOW,
-                last_name=last_name,
-                first_name=first_name,
                 amount=tow_data.tow_fee
             )
             items.append(item)
@@ -137,9 +99,9 @@ def export_member_invoices_to_csv(filename: str | Path, invoices: list[MemberInv
     -----
     This method writes the provided invoice items to a CSV file using the specified filename.
     """
-    invoices_by_pilot: dict[str, list[MemberInvoiceItem]] = dict()
+    invoices_by_pilot: dict[Name, list[MemberInvoiceItem]] = dict()
     for item in invoices:
-        key = item.display_name
+        key = item.name
         # Group items by display name (pilot)
         if key not in invoices_by_pilot:
             invoices_by_pilot[key] = list()
@@ -178,8 +140,8 @@ def export_member_invoices_to_csv(filename: str | Path, invoices: list[MemberInv
                     item.description,
                     item.product.value,
                     item.classification.value,
-                    item.last_name,
-                    item.first_name,
+                    item.name.last,
+                    item.name.first,
                     f"${item.amount:.2f}"
                 ]
                 writer.writerow(row)
