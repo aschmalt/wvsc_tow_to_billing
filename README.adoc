@@ -34,9 +34,14 @@ python create_invoices.py tickets.csv --overwrite
 
 === GUI
 
-UNDER DEVELOPMENT
-
 The graphical user interface will provide an easy way to select input files and output directories, making the conversion process more user-friendly.
+
+==== Usage
+
+[source,sh]
+----
+python -m tow_conversion.gui.converter
+----
 
 == Installation
 
