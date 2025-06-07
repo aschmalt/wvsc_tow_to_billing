@@ -43,13 +43,13 @@ class Invoice(ABC):
             Memo or notes for the bill.
         amount : float
             Amount charged for the service in dollars.
-        category : Category | None
+        category : Enum | None
             Optional
             Category of the service, if applicable.
-        classification : Classification | None
+        classification : Enum | None
             Optional
             Classification of the service, if applicable.
-        product : Product | None
+        product : Enum | None
             Optional
             Product type for the service, if applicable.
         """

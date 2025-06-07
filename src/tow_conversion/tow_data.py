@@ -99,9 +99,8 @@ class TowDataItem:
         if self.tow_speed <= 0:
             raise ValueError("Tow speed must be greater than 0.")
 
-    # pylint: disable=too-many-branches
     @classmethod
-    def read_from_tow_csv(cls, file_path: str | Path) -> Generator['TowDataItem', str | Path, None]:
+    def read_from_tow_csv(cls, file_path: str | Path) -> Generator['TowDataItem', str | Path, None]:  # pylint: disable=too-many-branches
         """Read tow data from a CSV file and populate the instance."""
         with open(file_path, mode='r', encoding='ascii') as file:
             reader = csv.DictReader(file)

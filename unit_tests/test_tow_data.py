@@ -1,7 +1,7 @@
 import pytest
-from tow_conversion import TowDataItem
 from datetime import datetime
-from tow_conversion.tow_data import TowDataItem, Name
+from tow_conversion.tow_data import TowDataItem
+from tow_conversion.name import Name
 
 
 def valid_tow_kwargs() -> dict[str, int | datetime | str | float]:
