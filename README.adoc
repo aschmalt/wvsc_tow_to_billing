@@ -6,15 +6,31 @@ A tool to convert CSV files exported from tow-ticket software into a format suit
 
 === Command Line Interface
 
-UNDER DEVELOPMENT
-
 The command line interface allows users to convert tow ticket CSV files into billing-ready CSV files for member invoices and vendor bills.
 
-// . Example conversion:
-// +
-// ----
-// python src/converter.py input_tow_tickets.csv output_billing.csv
-// ----
+==== Usage
+
+[source,sh]
+----
+python create_invoices.py <tow_ticket_csv> [--overwrite]
+----
+
+*Arguments:*
+- `<tow_ticket_csv>`: Path to the input tow ticket CSV file.
+
+*Options:*
+- `--overwrite`: Overwrite output files if they already exist.
+
+*Description:*
+This script converts a tow ticket CSV file into two separate CSV files: one for member invoices and one for vendor bills. The output files are named based on the input file, with suffixes `_member_invoice.csv` and `_vendor_bill.csv` respectively, and are saved in the same directory as the input file.
+
+*Examples:*
+
+[source,sh]
+----
+python create_invoices.py tickets.csv
+python create_invoices.py tickets.csv --overwrite
+----
 
 === GUI
 
