@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import pytest
 
 from tow_conversion import TowDataItem
+from tow_conversion.name import Name
 from tow_conversion.member_invoice import (
     MemberInvoiceItem,
     Product,
@@ -16,7 +17,7 @@ def create_dummy_tow_data_item(**kwargs) -> TowDataItem:
     """Create a dummy TowDataItem with default values, allowing for overrides."""
     settings = {'flown_flag': True,
                 'closed_flag': True,
-                'pilot': "Smith, John",
+                'pilot': Name("Smith, John"),
                 'ticket': "123",
                 'glider_id': "G1",
                 'glider_time': 1.5,

@@ -4,6 +4,7 @@ import csv
 from datetime import datetime, timedelta
 
 from tow_conversion import TowDataItem
+from tow_conversion.name import Name
 from tow_conversion.vendor_bill import (
     VendorBillItem,
     Category,
@@ -16,9 +17,9 @@ def create_dummy_tow_data_item(**kwargs) -> TowDataItem:
     """Create a dummy TowDataItem with default values, allowing for overrides."""
     settings = {'flown_flag': True,
                 'closed_flag': True,
-                'pilot': "Smith, John",
+                'pilot': Name("Smith, John"),
                 'ticket': "123",
-                'tow_pilot': "Doe, Jane",
+                'tow_pilot': Name("Doe, Jane"),
                 'tow_plane': "Cessna 172",
                 'glider_id': "G1",
                 'glider_time': 1.5,
