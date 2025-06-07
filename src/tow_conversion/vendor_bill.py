@@ -114,7 +114,7 @@ def export_vendor_bills_to_csv(filename: str | Path, invoices: list[VendorBillIt
                'SORT NAME',
                'Sum of Category Details - Amount']
 
-    with open(filename, 'w', encoding='ascii', newline='') as csvfile:
+    with open(filename, 'w', encoding='utf-8', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(headers)
 
