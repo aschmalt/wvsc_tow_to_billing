@@ -89,22 +89,21 @@ class CreateInvoicesGUI(tk.Tk):
         if overwrite:
             cmd.append("--overwrite")
 
-        process = subprocess.Popen(
-            cmd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True
-        )
+        with subprocess.Popen(cmd,
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.STDOUT,
+                              text=True
+                              ) as process:
 
-        for line in process.stdout:
-            self._append_log(line)
+            for line in process.stdout:
+                self._append_log(line)
 
-        process.wait()
-        if process.returncode == 0:
-            self._append_log("Done.\n")
-        else:
-            self._append_log(
-                f"Process exited with code {process.returncode}\n")
+            process.wait()
+            if process.returncode == 0:
+                self._append_log("Done.\n")
+            else:
+                self._append_log(
+                    f"Process exited with code {process.returncode}\n")
         self.run_button.config(state="normal")
 
     def _append_log(self, message) -> None:
