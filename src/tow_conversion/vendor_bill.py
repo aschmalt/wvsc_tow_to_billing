@@ -15,12 +15,21 @@ class Classification(Enum):
     """Class to hold classification constants for the MemberInvoiceItem."""
     INTRO = "INTRO RIDES"
     TOW = "TOW"
+    PACK = "5 PACKS"
 
 
 class Category(Enum):
     """Class to hold category constants for the MemberInvoiceItem."""
     INTRO = "Intro Pilot Expense"
     TOW = "Tow Pilot Expense"
+    PACK = "5 Pack Expense"
+
+
+COSTS = {
+    Classification.INTRO: 10.00,
+    Classification.TOW: 10.00,
+    Classification.PACK: 40.00
+}
 
 
 class VendorBillItem(Invoice):
@@ -59,7 +68,7 @@ class VendorBillItem(Invoice):
                 category=Category.TOW,
                 classification=Classification.TOW,
                 name=tow_data.tow_pilot,
-                amount=10.00,  # Assuming a fixed amount for the tow, can be adjusted as needed
+                amount=COSTS.get(Classification.TOW, 0.00)
             )
             items.append(tow_bill)
 
@@ -73,11 +82,24 @@ class VendorBillItem(Invoice):
                 category=Category.INTRO,
                 classification=Classification.INTRO,
                 name=tow_data.pilot,
-                amount=10.00,  # Assuming a fixed amount for the intro ride, can be adjusted as needed
+                amount=COSTS.get(Classification.INTRO, 0.00)
             )
             items.append(intro_bill)
 
-        # TODO: How are 5 Packs handled?
+        # 5 Packs
+        if tow_data.category == TicketCategory.PACK:
+            intro_bill = VendorBillItem(
+                invoice_date=datetime.now(),
+                due_date=datetime.now() + timedelta(days=30),
+                service_date=tow_data.date_time,
+                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}, {tow_data.pilot}',  # pylint: disable=line-too-long
+                category=Category.PACK,
+                classification=Classification.PACK,
+                name=tow_data.cfig,
+                amount=COSTS.get(Classification.PACK, 0.00)
+            )
+            items.append(intro_bill)
+
         return items
 
 

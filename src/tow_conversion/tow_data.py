@@ -4,8 +4,8 @@ from datetime import datetime
 from dataclasses import dataclass, field
 from pathlib import Path
 import csv
-from tow_conversion.name import Name
 from enum import Enum
+from tow_conversion.name import Name
 
 
 class TicketCategory(Enum):
@@ -14,7 +14,7 @@ class TicketCategory(Enum):
     """
     CLUB = "Club Glider"
     INTRO = "Intro"
-    # PACK = "5-Pack"
+    PACK = "5-Pack"
     COMP = "Complementary"
     PRIVATE = "Private Glider"
     # SARFARI = "Sarfari"

@@ -1,3 +1,4 @@
+"""GUI for converting tow tickets to billing invoices."""
 import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext
 import subprocess
@@ -7,7 +8,10 @@ import os
 
 
 class CreateInvoicesGUI(tk.Tk):
-    def __init__(self):
+    """GUI application for converting tow tickets to billing invoices."""
+
+    def __init__(self) -> None:
+        """Initialize the GUI application."""
         super().__init__()
         self.title("Tow Ticket to Billing Converter")
         self.geometry("600x400")
@@ -40,7 +44,8 @@ class CreateInvoicesGUI(tk.Tk):
             self, height=15, state="disabled", font=("Consolas", 10))
         self.log_text.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
-    def browse_file(self):
+    def browse_file(self) -> None:
+        """Open a file dialog to select the tow ticket CSV file."""
         file_path = filedialog.askopenfilename(
             title="Select Tow Ticket CSV File",
             filetypes=[("CSV Files", "*.csv"), ("All Files", "*.*")]
@@ -49,18 +54,19 @@ class CreateInvoicesGUI(tk.Tk):
             self.input_entry.delete(0, tk.END)
             self.input_entry.insert(0, file_path)
 
-    def run_conversion(self):
+    def run_conversion(self) -> None:
+        """Run the conversion process using a subprocess."""
         input_file = self.input_entry.get().strip()
         overwrite = self.overwrite_var.get()
 
         if not input_file:
-            messagebox.showerror(
-                "Error", "Please select a tow ticket CSV file.")
+            messagebox.showerror(title="Error",
+                                 message="Please select a tow ticket CSV file.")
             return
 
         if not os.path.isfile(input_file):
-            messagebox.showerror(
-                "Error", f"File does not exist:\n{input_file}")
+            messagebox.showerror(title="Error",
+                                 message=f"File does not exist:\n{input_file}")
             return
 
         self.log_text.config(state="normal")
@@ -73,7 +79,8 @@ class CreateInvoicesGUI(tk.Tk):
         threading.Thread(target=self._run_subprocess, args=(
             input_file, overwrite), daemon=True).start()
 
-    def _run_subprocess(self, input_file, overwrite):
+    def _run_subprocess(self, input_file, overwrite) -> None:
+        """Run the conversion command in a subprocess."""
         cmd = [
             sys.executable,
             "-m", "tow_conversion.cli.create_invoices",
@@ -100,7 +107,8 @@ class CreateInvoicesGUI(tk.Tk):
                 f"Process exited with code {process.returncode}\n")
         self.run_button.config(state="normal")
 
-    def _append_log(self, message):
+    def _append_log(self, message) -> None:
+        """Append a message to the log text area."""
         self.log_text.config(state="normal")
         self.log_text.insert(tk.END, message)
         self.log_text.see(tk.END)

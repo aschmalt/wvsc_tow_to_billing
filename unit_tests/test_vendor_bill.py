@@ -18,6 +18,7 @@ def create_dummy_tow_data_item(**kwargs) -> TowDataItem:
     settings = {'flown_flag': True,
                 'closed_flag': True,
                 'pilot': Name("Smith, John"),
+                'cfig': Name("Tor, Instruct"),
                 'ticket': "123",
                 'tow_pilot': Name("Doe, Jane"),
                 'tow_plane': "Cessna 172",
@@ -110,6 +111,28 @@ def test_from_tow_data_returns_only_tow_if_not_intro() -> None:
     assert item.service_date == tow_data.date_time
     assert item.classification == Classification.TOW
     assert item.description == 'Ticket #: 123, Release Alt: 3000, Cessna 172 Pilot: Smith, John'
+
+
+def test_from_tow_data_handles_5_pack_category() -> None:
+    # Simulate a 5 Pack ticket (assuming TicketCategory.FIVE_PACK exists)
+    tow_data = create_dummy_tow_data_item(category="5-Pack")
+    items = VendorBillItem.from_tow_data(tow_data)
+
+    assert len(items) == 2
+    item1, item2 = items
+    assert item1.category == Category.TOW
+    assert str(item1.name) == 'Doe, Jane'
+    assert item1.amount == 10.00
+    assert item1.service_date == tow_data.date_time
+    assert item1.classification == Classification.TOW
+    assert item1.description == 'Ticket #: 123, Release Alt: 3000, Cessna 172 Pilot: Smith, John'
+
+    assert item2.category == Category.PACK
+    assert str(item2.name) == tow_data.cfig
+    assert item2.amount == 40.00
+    assert item2.service_date == tow_data.date_time
+    assert item2.classification == Classification.PACK
+    assert item2.description == 'Ticket #: 123, Release Alt: 3000 Glider: G1, Smith, John'
 
 
 def test_export_vendor_bills_to_csv_creates_file_and_content(tmp_path: Path) -> None:
