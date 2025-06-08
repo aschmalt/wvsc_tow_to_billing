@@ -3,7 +3,7 @@ import pytest
 import csv
 from datetime import datetime, timedelta
 
-from tow_conversion import TowDataItem
+from tow_conversion.tow_data import TowDataItem, TicketCategory
 from tow_conversion.name import Name
 from tow_conversion.vendor_bill import (
     VendorBillItem,
@@ -32,9 +32,10 @@ def create_dummy_tow_data_item(**kwargs) -> TowDataItem:
                 'date_time': datetime(2024, 6, 1),
                 'tow_type': 'Areo',
                 'airport': '10R4',
-                'category': 'Club Flight',
+                'category': 'Club Glider',
                 'guest': 'my Guest', }
     settings.update(kwargs)
+    settings['category'] = TicketCategory(settings['category'])
     return TowDataItem(**settings)
 
 
@@ -99,7 +100,7 @@ def test_from_tow_data_returns_tow_and_intro_items() -> None:
 
 
 def test_from_tow_data_returns_only_tow_if_not_intro() -> None:
-    tow_data = create_dummy_tow_data_item(category="Club Flight")
+    tow_data = create_dummy_tow_data_item(category="Club Glider")
     items = VendorBillItem.from_tow_data(tow_data)
     assert len(items) == 1
     item = items[0]

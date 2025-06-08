@@ -5,8 +5,21 @@ from dataclasses import dataclass, field
 from pathlib import Path
 import csv
 from tow_conversion.name import Name
+from enum import Enum
 
-# from enum import Enum
+
+class TicketCategory(Enum):
+    """
+    Enum to represent different categories of tow tickets.
+    """
+    CLUB = "Club Glider"
+    INTRO = "Intro"
+    # PACK = "5 Pack"
+    COMP = "Complementary"
+    PRIVATE = "Private Glider"
+    # SARFARI = "Sarfari"
+    # CAP = "CAP CADET"
+
 # class TowType(Enum):
 #     """
 #     Enum to represent different types of tows.
@@ -41,7 +54,8 @@ class TowDataItem:
     pilot: Name = field(
         metadata={"description": "Name of the pilot"})
     airport: str = field(metadata={"description": "Airport code"})
-    category: str = field(metadata={"description": "Category of the tow"})
+    category: TicketCategory = field(
+        metadata={"description": "Category of the tow"})
     glider_id: str = field(metadata={"description": "ID of the glider used"})
     tow_type: str = field(
         metadata={"description": "Type of tow (e.g., aerotow, winch tow)"})
@@ -110,7 +124,7 @@ class TowDataItem:
                     'date_time': datetime.fromisoformat(row['Date Time']),
                     'pilot': Name(row['Bill To/Pilot']),
                     'airport': row['Airport'],
-                    'category': row['Category'],
+                    'category': TicketCategory(row['Category']),
                     'glider_id': row['Glider ID'],
                     'tow_type': row['Tow Type'],
                 }

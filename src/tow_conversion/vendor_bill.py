@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from enum import Enum
 import logging
 import csv
-from tow_conversion.tow_data import TowDataItem
+from tow_conversion.tow_data import TowDataItem, TicketCategory
 from tow_conversion.invoice import Invoice
 from tow_conversion.name import Name
 
@@ -64,7 +64,7 @@ class VendorBillItem(Invoice):
             items.append(tow_bill)
 
         # Intro Pilot Expense
-        if tow_data.category.lower() == 'intro':
+        if tow_data.category == TicketCategory.INTRO:
             intro_bill = VendorBillItem(
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
