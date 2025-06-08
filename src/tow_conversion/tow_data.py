@@ -14,7 +14,7 @@ class TicketCategory(Enum):
     """
     CLUB = "Club Glider"
     INTRO = "Intro"
-    # PACK = "5 Pack"
+    # PACK = "5-Pack"
     COMP = "Complementary"
     PRIVATE = "Private Glider"
     # SARFARI = "Sarfari"
