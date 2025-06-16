@@ -64,7 +64,7 @@ class VendorBillItem(Invoice):
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, {tow_data.tow_plane} Pilot: {tow_data.pilot}',  # pylint: disable=line-too-long
+                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, {tow_data.tow_plane}, Pilot: {tow_data.pilot}',  # pylint: disable=line-too-long
                 category=Category.TOW,
                 classification=Classification.TOW,
                 name=tow_data.tow_pilot,
@@ -78,7 +78,7 @@ class VendorBillItem(Invoice):
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}, {tow_data.guest}',  # pylint: disable=line-too-long
+                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, Glider: {tow_data.glider_id}, {tow_data.guest}',  # pylint: disable=line-too-long
                 category=Category.INTRO,
                 classification=Classification.INTRO,
                 name=tow_data.pilot,
@@ -88,17 +88,17 @@ class VendorBillItem(Invoice):
 
         # 5 Packs
         if tow_data.category == TicketCategory.PACK:
-            intro_bill = VendorBillItem(
+            pack_bill = VendorBillItem(
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}, {tow_data.pilot}',  # pylint: disable=line-too-long
+                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, Glider: {tow_data.glider_id}, {tow_data.pilot}',  # pylint: disable=line-too-long
                 category=Category.PACK,
                 classification=Classification.PACK,
                 name=tow_data.cfig,
                 amount=COSTS.get(Classification.PACK, 0.00)
             )
-            items.append(intro_bill)
+            items.append(pack_bill)
 
         return items
 
