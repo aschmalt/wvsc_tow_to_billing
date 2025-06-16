@@ -128,7 +128,7 @@ def test_from_tow_data_handles_5_pack_category() -> None:
     assert item1.description == 'Ticket #: 123, Release Alt: 3000, Cessna 172, Pilot: Smith, John'
 
     assert item2.category == Category.PACK
-    assert str(item2.name) == tow_data.cfig
+    assert str(item2.name) == str(tow_data.cfig)
     assert item2.amount == 40.00
     assert item2.service_date == tow_data.date_time
     assert item2.classification == Classification.PACK
