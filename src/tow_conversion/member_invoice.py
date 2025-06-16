@@ -59,8 +59,7 @@ class MemberInvoiceItem(Invoice):
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                # description=f'Ticket #: {tow_data.ticket}, Glider: {tow_data.glider_id}, Glider Time: {tow_data.glider_time} hours',  # pylint: disable=line-too-long
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}',  # pylint: disable=line-too-long
+                description=f'Ticket #: {tow_data.ticket}, Glider: {tow_data.glider_id}, Glider Time: {tow_data.glider_time} hours',  # pylint: disable=line-too-long
                 product=Product.GLIDER,
                 classification=Classification.GLIDER,
                 amount=tow_data.rental_fee
