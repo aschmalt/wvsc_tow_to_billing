@@ -41,6 +41,9 @@ dev = [
     "pytest-cov",
     "debugpy",
 ]
+exec = [
+    "pyinstaller",
+]
 
 # [project.gui-scripts]
 # spam-gui = "spam:main_gui"
