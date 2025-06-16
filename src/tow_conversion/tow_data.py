@@ -160,8 +160,6 @@ class TowDataItem:
                     inputs['tow_pilot'] = Name(row['Tow Pilot'].strip())
                 if row.get('Tow Plane', None):
                     inputs['tow_plane'] = row['Tow Plane']
-                if row.get('Guest', None):
-                    inputs['guest'] = row['Guest']
                 if row.get('Flown Flag', None):
                     inputs['flown_flag'] = row.get('Flown Flag', None) == '1'
                 if row.get('Closed Flag', None):
