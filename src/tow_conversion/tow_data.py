@@ -62,8 +62,8 @@ class TowDataItem:
     # Optional fields
     flight_brief: str = field(default="Standard", metadata={
                               "description": "Flight brief type"})
-    cfig: str = field(default="", metadata={
-                      "description": "CFIG (Certified Flight Instructor) name, if applicable"})
+    cfig: Name | None = field(default=None, metadata={
+        "description": "CFIG (Certified Flight Instructor) name, if applicable"})
     guest: str = field(default="", metadata={
                        "description": "Guest name, if applicable"})
     billable_rental: bool = field(default=True, metadata={
@@ -122,7 +122,7 @@ class TowDataItem:
                 inputs = {
                     'ticket': int(row['Ticket #']),
                     'date_time': datetime.fromisoformat(row['Date Time']),
-                    'pilot': Name(row['Bill To/Pilot']),
+                    'pilot': Name(row['Bill To/Pilot'].strip()),
                     'airport': row['Airport'],
                     'category': TicketCategory(row['Category']),
                     'glider_id': row['Glider ID'],
@@ -131,8 +131,8 @@ class TowDataItem:
 
                 if row.get('Flight Brief', None):
                     inputs['flight_brief'] = row['Flight Brief']
-                if row.get('CFIG', None):
-                    inputs['cfig'] = row['CFIG']
+                if row.get('CFIG', '').strip():
+                    inputs['cfig'] = Name(row['CFIG'].strip())
                 if row.get('Guest', None):
                     inputs['guest'] = row['Guest']
                 if row.get('Billable Rental', None):
@@ -156,8 +156,8 @@ class TowDataItem:
                     inputs['remarks'] = row['Remarks']
                 if row.get('Certificate', None):
                     inputs['certificate'] = row['Certificate']
-                if row.get('Tow Pilot', None):
-                    inputs['tow_pilot'] = Name(row['Tow Pilot'])
+                if row.get('Tow Pilot', '').strip():
+                    inputs['tow_pilot'] = Name(row['Tow Pilot'].strip())
                 if row.get('Tow Plane', None):
                     inputs['tow_plane'] = row['Tow Plane']
                 if row.get('Guest', None):
