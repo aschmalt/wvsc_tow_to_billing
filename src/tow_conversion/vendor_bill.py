@@ -68,7 +68,7 @@ class VendorBillItem(Invoice):
                 category=Category.TOW,
                 classification=Classification.TOW,
                 name=tow_data.tow_pilot,
-                amount=COSTS.get(Classification.TOW, 0.00)
+                amount=COSTS[Classification.TOW]
             )
             items.append(tow_bill)
 
@@ -82,12 +82,16 @@ class VendorBillItem(Invoice):
                 category=Category.INTRO,
                 classification=Classification.INTRO,
                 name=tow_data.pilot,
-                amount=COSTS.get(Classification.INTRO, 0.00)
+                amount=COSTS[Classification.INTRO]
             )
             items.append(intro_bill)
 
         # 5 Packs
         if tow_data.category == TicketCategory.PACK:
+            if not tow_data.cfig:
+                log.error(
+                    f'Tow ticket {tow_data.ticket} is a PACK but has no CFIG. Skipping.')
+                return items
             pack_bill = VendorBillItem(
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
@@ -96,7 +100,7 @@ class VendorBillItem(Invoice):
                 category=Category.PACK,
                 classification=Classification.PACK,
                 name=tow_data.cfig,
-                amount=COSTS.get(Classification.PACK, 0.00)
+                amount=COSTS[Classification.PACK]
             )
             items.append(pack_bill)
 

@@ -40,11 +40,16 @@ dev = [
     "pytest",
     "pytest-cov",
     "debugpy",
-]
-exec = [
     "pyinstaller",
 ]
 
-# [project.gui-scripts]
-# spam-gui = "spam:main_gui"
+[project.gui-scripts]
+tow-converter = "tow_converter.gui.converter.__main__:main"
 
+[tool.pyinstaller]
+# Example: specify the entry script and options
+main-script = "tow_converter/gui/converter.py"
+onefile = true
+console = false
+windowed = true
+name = "tow_converion_gui"
