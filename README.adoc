@@ -1,4 +1,5 @@
 = WVSC Tow Ticket to Billing Converter
+:imagesdir: images
 
 A tool to convert CSV files exported from tow-ticket software into a format suitable for billing input.
 
@@ -65,7 +66,25 @@ This will generate an executable named `tow_conversion_gui` in the `dist` direct
 
 The executable for this GUI can be downloaded from the releases section of the repository. It is built using PyInstaller and includes all necessary dependencies.
 
-xref:releases/tow_conversion_gui.exe[Download the GUI executable]
+. xref:releases/tow_conversion_gui.exe[Link the GUI executable]
+. Click the download file button
++
+image:download.png[Download the GUI executable]
+. Run the executable from where you downloaded it to.
+. Skip the `Windows protected your PC` by selecting `More info`
++
+image:more_info.png[More info]
+. Click `Run anyway` to execute the program
++
+image:run_anyway.png[Run anyway]
+
+=== GUI Look/Feel
+
+The initial GUI has a simple layout with a file selection dialog for input tow-ticket csv file, a Run button and a dialog window for information about warnings and errors when it runs.
+
+The output files will be saved in the same directory as the input file, with the name suffixes of `_member_invoice.csv` and `_vendor_bill.csv`.
+
+image::gui.png[]
 
 == Features
 
