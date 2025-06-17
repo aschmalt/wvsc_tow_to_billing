@@ -37,7 +37,15 @@ python create_invoices.py tickets.csv --overwrite
 
 The graphical user interface will provide an easy way to select input files and output directories, making the conversion process more user-friendly.
 
-==== Usage
+=== Look/Feel
+
+The initial GUI has a simple layout with a file selection dialog for input tow-ticket csv file, a Run button and a dialog window for information about warnings and errors when it runs.
+
+The output files will be saved in the same directory as the input file, with the name suffixes of `_member_invoice.csv` and `_vendor_bill.csv`.
+
+image::gui.png[]
+
+==== How to Run the GUI using Python
 
 [source,sh]
 ----
@@ -57,16 +65,16 @@ To create an executable for the GUI, use the following command:
 [source,sh]
 ----
 pyinstaller --onefile --windowed --name tow_conversion_gui src/tow_conversion/gui/converter.py
-mv dist/tow_conversion_gui.exe releases
 ----
 
-This will generate an executable named `tow_conversion_gui` in the `dist` directory.
+This will generate an executable named `tow_conversion_gui.exe` in the `dist` directory.
+
 
 == Installation
 
-The executable for this GUI can be downloaded from the releases section of the repository. It is built using PyInstaller and includes all necessary dependencies.
+The executable for this GUI can be downloaded from the dist folder of the repository. It is built using PyInstaller and includes all necessary dependencies.
 
-. xref:releases/tow_conversion_gui.exe[Link the GUI executable]
+. xref:dist/tow_conversion_gui.exe[Link the GUI executable]
 . Click the download file button
 +
 image:download.png[Download the GUI executable]
@@ -77,14 +85,6 @@ image:more_info.png[More info]
 . Click `Run anyway` to execute the program
 +
 image:run_anyway.png[Run anyway]
-
-=== GUI Look/Feel
-
-The initial GUI has a simple layout with a file selection dialog for input tow-ticket csv file, a Run button and a dialog window for information about warnings and errors when it runs.
-
-The output files will be saved in the same directory as the input file, with the name suffixes of `_member_invoice.csv` and `_vendor_bill.csv`.
-
-image::gui.png[]
 
 == Features
 
