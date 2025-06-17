@@ -124,7 +124,7 @@ class TowDataItem:
                     'date_time': datetime.fromisoformat(row['Date Time']),
                     'pilot': Name(row['Bill To/Pilot'].strip()),
                     'airport': row['Airport'],
-                    'category': TicketCategory(row['Category']),
+                    'category': TicketCategory(row['Category'].strip()),
                     'glider_id': row['Glider ID'],
                     'tow_type': row['Tow Type'],
                 }
