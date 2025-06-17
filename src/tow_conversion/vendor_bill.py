@@ -90,7 +90,7 @@ class VendorBillItem(Invoice):
         if tow_data.category == TicketCategory.PACK:
             if not tow_data.cfig:
                 log.error(
-                    f'Tow ticket {tow_data.ticket} is a PACK but has no CFIG. Skipping.')
+                    'Tow ticket %s is a PACK but has no CFIG. Skipping.', tow_data.ticket)
                 return items
             pack_bill = VendorBillItem(
                 invoice_date=datetime.now(),
