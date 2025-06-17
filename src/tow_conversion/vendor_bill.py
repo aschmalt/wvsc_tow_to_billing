@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from enum import Enum
 import logging
 import csv
-from tow_conversion.tow_data import TowDataItem
+from tow_conversion.tow_data import TowDataItem, TicketCategory
 from tow_conversion.invoice import Invoice
 from tow_conversion.name import Name
 
@@ -15,12 +15,21 @@ class Classification(Enum):
     """Class to hold classification constants for the MemberInvoiceItem."""
     INTRO = "INTRO RIDES"
     TOW = "TOW"
+    PACK = "5 PACKS"
 
 
 class Category(Enum):
     """Class to hold category constants for the MemberInvoiceItem."""
     INTRO = "Intro Pilot Expense"
     TOW = "Tow Pilot Expense"
+    PACK = "5 Pack Expense"
+
+
+COSTS = {
+    Classification.INTRO: 10.00,
+    Classification.TOW: 10.00,
+    Classification.PACK: 40.00
+}
 
 
 class VendorBillItem(Invoice):
@@ -55,29 +64,46 @@ class VendorBillItem(Invoice):
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, {tow_data.tow_plane} Pilot: {tow_data.pilot}',  # pylint: disable=line-too-long
+                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, {tow_data.tow_plane}, Pilot: {tow_data.pilot}',  # pylint: disable=line-too-long
                 category=Category.TOW,
                 classification=Classification.TOW,
                 name=tow_data.tow_pilot,
-                amount=10.00,  # Assuming a fixed amount for the tow, can be adjusted as needed
+                amount=COSTS[Classification.TOW]
             )
             items.append(tow_bill)
 
         # Intro Pilot Expense
-        if tow_data.category.lower() == 'intro':
+        if tow_data.category == TicketCategory.INTRO:
             intro_bill = VendorBillItem(
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt} Glider: {tow_data.glider_id}, {tow_data.guest}',  # pylint: disable=line-too-long
+                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, Glider: {tow_data.glider_id}, {tow_data.guest}',  # pylint: disable=line-too-long
                 category=Category.INTRO,
                 classification=Classification.INTRO,
                 name=tow_data.pilot,
-                amount=10.00,  # Assuming a fixed amount for the intro ride, can be adjusted as needed
+                amount=COSTS[Classification.INTRO]
             )
             items.append(intro_bill)
 
-        # TODO: How are 5 Packs handled?
+        # 5 Packs
+        if tow_data.category == TicketCategory.PACK:
+            if not tow_data.cfig:
+                log.error(
+                    'Tow ticket %s is a PACK but has no CFIG. Skipping.', tow_data.ticket)
+                return items
+            pack_bill = VendorBillItem(
+                invoice_date=datetime.now(),
+                due_date=datetime.now() + timedelta(days=30),
+                service_date=tow_data.date_time,
+                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, Glider: {tow_data.glider_id}, {tow_data.pilot}',  # pylint: disable=line-too-long
+                category=Category.PACK,
+                classification=Classification.PACK,
+                name=tow_data.cfig,
+                amount=COSTS[Classification.PACK]
+            )
+            items.append(pack_bill)
+
         return items
 
 

@@ -34,13 +34,38 @@ python create_invoices.py tickets.csv --overwrite
 
 === GUI
 
-UNDER DEVELOPMENT
-
 The graphical user interface will provide an easy way to select input files and output directories, making the conversion process more user-friendly.
+
+==== Usage
+
+[source,sh]
+----
+python -m tow_conversion.gui.converter
+----
+
+==== Create Executable
+To create an executable for the GUI, you will need to have `pyinstaller` installed. If you haven't installed it yet, you can do so using pip:
+
+[source,sh]
+----
+pip install pyinstaller
+----
+
+To create an executable for the GUI, use the following command:
+
+[source,sh]
+----
+pyinstaller --onefile --windowed --name tow_conversion_gui src/tow_conversion/gui/converter.py
+mv dist/tow_conversion_gui.exe releases
+----
+
+This will generate an executable named `tow_conversion_gui` in the `dist` directory.
 
 == Installation
 
-UNDER DEVELOPMENT
+The executable for this GUI can be downloaded from the releases section of the repository. It is built using PyInstaller and includes all necessary dependencies.
+
+xref:releases/tow_conversion_gui.exe[Download the GUI executable]
 
 == Features
 

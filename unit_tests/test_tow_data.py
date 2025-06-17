@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from tow_conversion.tow_data import TowDataItem
+from tow_conversion.tow_data import TowDataItem, TicketCategory
 from tow_conversion.name import Name
 
 
@@ -10,7 +10,7 @@ def valid_tow_kwargs() -> dict[str, int | datetime | str | float]:
         date_time=datetime(2024, 6, 1, 12, 0),
         pilot="John Doe",
         airport="WVSC",
-        category="Instruction",
+        category="Club Glider",
         glider_id="G-123",
         tow_type="Aerotow",
         flight_brief="Standard",
@@ -143,4 +143,6 @@ def test_read_from_tow_csv(tmp_path) -> None:
         if isinstance(got, Name) and isinstance(value, str):
             # If the attribute is a Name object, compare its corresponding Name object
             value = Name(value)
+        elif isinstance(got, TicketCategory) and isinstance(value, str):
+            value = TicketCategory(value)
         assert got == value, f"Expected {key} to be {value}, got {got}"
