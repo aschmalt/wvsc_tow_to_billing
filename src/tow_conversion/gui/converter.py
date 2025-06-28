@@ -102,7 +102,7 @@ class CreateInvoicesGUI(tk.Tk):
             self.output_entry.insert(0, dir_path)
 
     def run_conversion(self) -> None:
-        """Run the conversion process using a subprocess."""
+        """Run the conversion process in a background thread."""
         input_file = self.input_entry.get().strip()
         output_dir = self.output_entry.get().strip()
         overwrite = self.overwrite_var.get()
