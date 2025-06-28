@@ -9,6 +9,7 @@ import sys
 import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext
 from tow_conversion.cli.create_invoices import convert_tow_ticket_to_all_invoices
+from tow_conversion import __version__
 
 
 class CreateInvoicesGUI(tk.Tk):
@@ -17,7 +18,7 @@ class CreateInvoicesGUI(tk.Tk):
     def __init__(self) -> None:
         """Initialize the GUI application."""
         super().__init__()
-        self.title("Tow Ticket to Billing Converter")
+        self.title(f"Tow Ticket to Billing Converter v{__version__}")
         self.geometry("600x400")
 
         # Input file selection
