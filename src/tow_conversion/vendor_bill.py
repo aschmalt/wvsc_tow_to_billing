@@ -126,6 +126,7 @@ def export_vendor_bills_to_csv(filename: str | Path, invoices: list[VendorBillIt
     -----
     This method writes the provided vendor bill items to the specified CSV file.
     """
+    log.info("Exporting vendor invoices to %s", filename)
     invoices_by_vendor: dict[Name, list[VendorBillItem]] = dict()
     for item in invoices:
         key = item.name
@@ -170,3 +171,4 @@ def export_vendor_bills_to_csv(filename: str | Path, invoices: list[VendorBillIt
                     f"${item.amount:.2f}"
                 ]
                 writer.writerow(row)
+    log.info("Vendor invoices exported successfully")
