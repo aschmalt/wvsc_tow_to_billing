@@ -41,9 +41,16 @@ The graphical user interface will provide an easy way to select input files and 
 
 The initial GUI has a simple layout with a file selection dialog for input tow-ticket csv file, a Run button and a dialog window for information about warnings and errors when it runs.
 
-The output files will be saved in the same directory as the input file, with the name suffixes of `_member_invoice.csv` and `_vendor_bill.csv`.
+The output files will be saved in the selected output directory, with the name:
 
-image::gui.png[]
+* `member_invoice.csv`
+* `vendor_bill.csv`
+
+image:gui.png[]
+
+Upon successful conversion, a message will be displayed indicating the output files have been created and buttons to open them.
+
+image:completion_gui.png[]
 
 ==== How to Run the GUI using Python
 
