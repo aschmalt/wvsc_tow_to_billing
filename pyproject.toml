@@ -1,6 +1,6 @@
 [project]
 name = "tow-conversion"
-version = "0.1.0"
+version = "0.2.0"
 description = "Project to convert TOW csv files to invoice csv files for billing purposes."
 
 readme = {file = "README.adoc", content-type = "text/asciidoc"}
