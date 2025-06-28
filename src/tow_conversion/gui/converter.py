@@ -1,12 +1,14 @@
 """GUI for converting tow tickets to billing invoices."""
+from typing import Any
+from collections.abc import Callable
 from pathlib import Path
 import logging
-import tkinter as tk
-from tkinter import filedialog, messagebox, scrolledtext
-from tow_conversion.cli.create_invoices import convert_tow_ticket_to_all_invoices
 import os
 import subprocess
 import sys
+import tkinter as tk
+from tkinter import filedialog, messagebox, scrolledtext
+from tow_conversion.cli.create_invoices import convert_tow_ticket_to_all_invoices
 
 
 class CreateInvoicesGUI(tk.Tk):
@@ -64,7 +66,11 @@ class CreateInvoicesGUI(tk.Tk):
             lambda msg: self.after(0, self._append_log, msg))
 
         class LevelBasedFormatter(logging.Formatter):
-            def format(self, record) -> str:
+            """Custom formatter to change log message format based on level."""
+
+            def format(self, record: logging.LogRecord) -> str:
+                # pylint: disable=protected-access
+                """Format the log record based on its level."""
                 if record.levelno == logging.INFO:
                     self._style._fmt = '%(message)s'
                 elif record.levelno == logging.WARNING:
@@ -159,7 +165,7 @@ class CreateInvoicesGUI(tk.Tk):
                 raise FileNotFoundError(
                     f"Conversion failed: {vendor_file} not created.")
             self.after(0, lambda: self._on_conversion_complete(success=True))
-        except Exception as e:
+        except BaseException as e:  # pylint: disable=broad-exception-caught
             self.after(0, lambda: self._on_conversion_complete(
                 success=False, error=str(e)))
 
@@ -218,11 +224,15 @@ class CreateInvoicesGUI(tk.Tk):
 
 
 class TextWidgetHandler(logging.Handler):
-    def __init__(self, append_func) -> None:
+    """Custom logging handler to append messages to a Tkinter Text widget."""
+
+    def __init__(self, append_func: Callable[[Any], Any]) -> None:
+        """Initialize the handler with a function to append messages."""
         super().__init__()
         self.append_func = append_func
 
-    def emit(self, record) -> None:
+    def emit(self, record: logging.LogRecord) -> None:
+        """Emit a log record by appending it to the Text widget."""
         msg = self.format(record) + "\n"
         # Use after_idle to ensure thread safety with Tkinter
         self.append_func(msg)

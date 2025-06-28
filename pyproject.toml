@@ -39,6 +39,7 @@ dev = [
     "pylint",
     "pytest",
     "pytest-cov",
+    "pytest_check",
     "debugpy",
     "pyinstaller",
 ]
