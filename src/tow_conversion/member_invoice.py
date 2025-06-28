@@ -102,6 +102,7 @@ def export_member_invoices_to_csv(filename: str | Path, invoices: list[MemberInv
     -----
     This method writes the provided invoice items to a CSV file using the specified filename.
     """
+    log.info("Exporting member invoices to %s", filename)
     invoices_by_pilot: dict[Name, list[MemberInvoiceItem]] = dict()
     for item in invoices:
         key = item.name
@@ -148,3 +149,4 @@ def export_member_invoices_to_csv(filename: str | Path, invoices: list[MemberInv
                     f"${item.amount:.2f}"
                 ]
                 writer.writerow(row)
+    log.info("Member invoices exported successfully")
