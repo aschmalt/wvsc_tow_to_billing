@@ -3,7 +3,7 @@ from abc import ABC
 import logging
 from datetime import datetime
 from enum import Enum
-from tow_conversion.tow_data import TowDataItem
+from tow_conversion.tow_data import TowDataItem, TicketCategory
 from tow_conversion.name import Name
 
 log = logging.getLogger('Invoice')
@@ -95,7 +95,7 @@ class Invoice(ABC):
                 log.warning(
                     "Tow Data for ticket %s has not been flown. No invoice items will be created.", tow_data.ticket)
             return False
-        if not tow_data.closed_flag:
+        if not tow_data.closed_flag and tow_data.category != TicketCategory.PRIVATE:
             if log_warnings:
                 log.warning(
                     "Tow Data for ticket %s is not closed. No invoice items will be created.", tow_data.ticket)

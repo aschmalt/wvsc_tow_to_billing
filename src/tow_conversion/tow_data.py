@@ -17,7 +17,7 @@ class TicketCategory(Enum):
     PACK = "5-Pack"
     COMP = "Complementary"
     PRIVATE = "Private Glider"
-    # SARFARI = "Sarfari"
+    SAFARI = "Safari"
     # CAP = "CAP CADET"
 
 # class TowType(Enum):
@@ -108,10 +108,11 @@ class TowDataItem:
         if self.billable_rental and self.glider_time <= 0:
             raise ValueError(
                 "Glider time must be greater than 0, if billable rental is True.")
-        if self.release_alt <= 0:
-            raise ValueError("Release altitude must be greater than 0.")
-        if self.tow_speed <= 0:
-            raise ValueError("Tow speed must be greater than 0.")
+        if self.billable_tow:
+            if self.release_alt <= 0:
+                raise ValueError("Release altitude must be greater than 0.")
+            if self.tow_speed <= 0:
+                raise ValueError("Tow speed must be greater than 0.")
 
     @classmethod
     def read_from_tow_csv(cls, file_path: str | Path) -> Generator['TowDataItem', str | Path, None]:  # pylint: disable=too-many-branches

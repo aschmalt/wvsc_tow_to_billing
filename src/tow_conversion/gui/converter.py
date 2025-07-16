@@ -166,9 +166,9 @@ class CreateInvoicesGUI(tk.Tk):
                 raise FileNotFoundError(
                     f"Conversion failed: {vendor_file} not created.")
             self.after(0, lambda: self._on_conversion_complete(success=True))
-        except BaseException as e:  # pylint: disable=broad-exception-caught
-            self.after(0, lambda: self._on_conversion_complete(
-                success=False, error=str(e)))
+        except BaseException as err:  # pylint: disable=broad-exception-caught
+            self.after(0, lambda err=err: self._on_conversion_complete(
+                success=False, error=str(err)))
 
     def _append_log(self, message) -> None:
         """Append a message to the log text area."""
