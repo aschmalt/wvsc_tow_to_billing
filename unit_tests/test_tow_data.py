@@ -1,10 +1,11 @@
 import csv
-import pytest
 from datetime import datetime
 from pathlib import Path
-from tow_conversion.tow_data import TowDataItem, TicketCategory
-from tow_conversion.name import Name
 
+import pytest
+
+from tow_conversion.name import Name
+from tow_conversion.tow_data import TicketCategory, TowDataItem
 
 VALID_TOW_KWARGS: dict[str, int | datetime | str | float] = dict(
     ticket=1,
@@ -46,8 +47,8 @@ def test_valid_towdata_creation() -> None:
 
 def test_ticket_must_be_non_negative() -> None:
     kwargs = VALID_TOW_KWARGS.copy()
-    kwargs['ticket'] = ''
-    with pytest.raises(ValueError, match="Tow Ticket must have a value."):
+    kwargs['ticket'] = -1
+    with pytest.raises(ValueError, match="Tow Ticket must greater than 0."):
         TowDataItem(**kwargs)
 
 

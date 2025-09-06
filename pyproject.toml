@@ -55,6 +55,17 @@ max_line_length = 120
 # Set the maximum line length to match your project settings
 line-length = 120
 
+# Exclude directories and files
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "*.egg-info",
+]
+
+[tool.ruff.lint]
 # Enable specific rule sets
 select = [
     "E",   # pycodestyle errors
@@ -77,25 +88,18 @@ ignore = [
     "D213", # Multi-line docstring summary should start at the second line (conflicts with D212)
 ]
 
-# Exclude directories and files
-exclude = [
-    ".git",
-    ".venv",
-    "__pycache__",
-    "build",
-    "dist",
-    "*.egg-info",
-]
+# Per-file ignores - disable import sorting for specific files
+per-file-ignores = { "src/tow_conversion/__init__.py" = ["I001"] }
 
 # Configure import sorting (isort replacement)
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["tow_conversion"]
 force-sort-within-sections = true
 split-on-trailing-comma = true
 
 # Configure pydocstyle rules
-[tool.ruff.pydocstyle]
-convention = "google"  # Use Google docstring convention
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"  # Use Numpy docstring convention
 
 [tool.pyinstaller]
 # Example: specify the entry script and options

@@ -10,9 +10,8 @@ from tow_conversion.name import Name
 
 
 class TicketCategory(Enum):
-    """
-    Enum to represent different categories of tow tickets.
-    """
+    """Enum to represent different categories of tow tickets."""
+
     CLUB = "Club Glider"
     INTRO = "Intro"
     PACK = "5-Pack"
@@ -98,8 +97,8 @@ class TowDataItem:
 
     def __post_init__(self) -> None:
         """Post-initialization validation for the TowData class."""
-        if not self.ticket:
-            raise ValueError("Tow Ticket must have a value.")
+        if self.ticket <= 0:
+            raise ValueError("Tow Ticket must greater than 0.")
         if self.billable_rental and self.rental_fee <= 0:
             raise ValueError(
                 "Rental fee must be greater than 0, if billable rental is True.")
@@ -165,6 +164,10 @@ class TowDataItem:
         with open(file_path, mode='r', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             for row in reader:
+                if all(value is None or value.strip() == '' for value in row.values()):
+                    continue  # Skip empty rows
+                if not row['Ticket #']:
+                    raise ValueError("Tow Ticket must have a value.")
                 inputs = {
                     'ticket': int(row['Ticket #']),
                     'date_time': cls._parse_date(row['Date Time']),
