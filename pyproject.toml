@@ -66,28 +66,6 @@ exclude = [
 ]
 
 [tool.ruff.lint]
-# Enable specific rule sets
-select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # Pyflakes
-    "I",   # isort (import sorting)
-    "D",   # pydocstyle (docstring conventions)
-    "UP",  # pyupgrade
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
-    "PIE", # flake8-pie
-    "SIM", # flake8-simplify
-]
-
-# Ignore specific rules if needed
-ignore = [
-    "D100", # Missing docstring in public module
-    "D104", # Missing docstring in public package
-    "D203", # 1 blank line required before class docstring (conflicts with D211)
-    "D213", # Multi-line docstring summary should start at the second line (conflicts with D212)
-]
-
 # Per-file ignores - disable import sorting for specific files
 per-file-ignores = { "src/tow_conversion/__init__.py" = ["I001"] }
 

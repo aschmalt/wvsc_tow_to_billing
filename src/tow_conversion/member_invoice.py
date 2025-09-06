@@ -1,4 +1,4 @@
-"""Module to define the MemberInvoiceItem class for tow billing information and method to save"""
+"""Module to define the MemberInvoiceItem class for tow billing information and method to save."""
 import csv
 from datetime import datetime, timedelta
 from enum import Enum
@@ -14,12 +14,14 @@ log = logging.getLogger('MemberInvoice')
 
 class Product(Enum):
     """Enum to represent different products or services."""
+
     TOW = 'Towing'
     GLIDER = 'Glider Rental'
 
 
 class Classification(Enum):
     """Enum to represent different classifications for the MemberInvoiceItem."""
+
     TOW = "TOW"
     GLIDER = "GLIDER"
 
@@ -48,7 +50,7 @@ class MemberInvoiceItem(Invoice):
             - Item for Glider Rental if billable rental is True
             - Item for Towing if billable tow is True
         """
-        items: list[MemberInvoiceItem] = list()
+        items: list[MemberInvoiceItem] = []
 
         if not cls.is_tow_ticket_completed(tow_data, log_warnings=log_unbillable_tow_tickets):
             return items
@@ -60,7 +62,9 @@ class MemberInvoiceItem(Invoice):
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                description=f'Ticket #: {tow_data.ticket}, Glider: {tow_data.glider_id}, Glider Time: {tow_data.glider_time:.1f} hours',  # pylint: disable=line-too-long
+                description=(f'Ticket #: {tow_data.ticket}, '
+                             f'Glider: {tow_data.glider_id}, '
+                             f'Glider Time: {tow_data.glider_time:.1f} hours'),
                 product=Product.GLIDER,
                 classification=Classification.GLIDER,
                 amount=tow_data.rental_fee
@@ -74,7 +78,8 @@ class MemberInvoiceItem(Invoice):
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}',
+                description=(f'Ticket #: {tow_data.ticket}, '
+                             f'Release Alt: {tow_data.release_alt}'),
                 product=Product.TOW,
                 classification=Classification.TOW,
                 amount=tow_data.tow_fee
@@ -104,12 +109,12 @@ def export_member_invoices_to_csv(filename: str | Path, invoices: list[MemberInv
     This method writes the provided invoice items to a CSV file using the specified filename.
     """
     log.info("Exporting member invoices to %s", filename)
-    invoices_by_pilot: dict[Name, list[MemberInvoiceItem]] = dict()
+    invoices_by_pilot: dict[Name, list[MemberInvoiceItem]] = {}
     for item in invoices:
         key = item.name
         # Group items by display name (pilot)
         if key not in invoices_by_pilot:
-            invoices_by_pilot[key] = list()
+            invoices_by_pilot[key] = []
         invoices_by_pilot[key].append(item)
 
     headers = ['Display Name',

@@ -1,4 +1,4 @@
-"""Tow Data Item Class for Tow Ticket System CSV Import"""
+"""Tow Data Item Class for Tow Ticket System CSV Import."""
 from collections.abc import Generator
 import csv
 from dataclasses import dataclass, field
@@ -47,6 +47,7 @@ class TicketCategory(Enum):
 @dataclass
 class TowDataItem:
     """Class to hold TOW data from Tow Ticket System."""
+
     ticket: int = field(
         metadata={"description": "Unique identifier for the tow ticket"})
     date_time: datetime = field(
@@ -161,7 +162,7 @@ class TowDataItem:
     @classmethod
     def read_from_tow_csv(cls, file_path: str | Path) -> Generator['TowDataItem', str | Path, None]:  # pylint: disable=too-many-branches
         """Read tow data from a CSV file and populate the instance."""
-        with open(file_path, mode='r', encoding='utf-8') as file:
+        with open(file_path, encoding='utf-8') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 if all(value is None or value.strip() == '' for value in row.values()):
@@ -217,7 +218,7 @@ class TowDataItem:
                 yield cls(**inputs)
 
     def __str__(self) -> str:
-        """String representation of the TowData instance."""
+        """Return string representation of the TowData instance."""
         return (f"TOW Ticket: {self.ticket}, Date/Time: {self.date_time.isoformat()}, "
                 f"Pilot: {self.pilot}, Airport: {self.airport}, Category: {self.category}, "
                 f"Glider ID: {self.glider_id}, Tow Type: {self.tow_type}, "

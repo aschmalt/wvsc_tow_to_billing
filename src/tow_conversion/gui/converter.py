@@ -179,7 +179,7 @@ class CreateInvoicesGUI(tk.Tk):
         self.log_text.config(state="disabled")
 
     def _on_conversion_complete(self, success: bool, error: str = None) -> None:
-        """Callback when conversion thread finishes."""
+        """Handle conversion thread completion."""
         self.run_button.config(state="normal")
         if success:
             self._append_log("Conversion complete!\n")

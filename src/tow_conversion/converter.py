@@ -27,7 +27,7 @@ def convert_tow_ticket_to_member_invoice(tow_ticket_file: str | Path, output_fil
     log.info("Converting %s to %s", tow_ticket_file, output_file)
 
     all_tow_data = TowDataItem.read_from_tow_csv(tow_ticket_file)
-    member_invoices: list[MemberInvoiceItem] = list()
+    member_invoices: list[MemberInvoiceItem] = []
     for tow_data in all_tow_data:
         member_invoices.extend(MemberInvoiceItem.from_tow_data(tow_data))
 
@@ -49,7 +49,7 @@ def convert_tow_ticket_to_vendor_bill(tow_ticket_file: str | Path, output_file: 
     log.info("Converting %s to %s", tow_ticket_file, output_file)
 
     all_tow_data = TowDataItem.read_from_tow_csv(tow_ticket_file)
-    vendor_bills: list[VendorBillItem] = list()
+    vendor_bills: list[VendorBillItem] = []
     for tow_data in all_tow_data:
         vendor_bills.extend(VendorBillItem.from_tow_data(tow_data))
 
@@ -61,7 +61,8 @@ def convert_tow_ticket_to_all_invoices(tow_ticket_file: str | Path,
                                        member_invoice_file: str | Path,
                                        vendor_invoice_file: str | Path) -> None:
     """
-    Converts tow ticket data into member invoices and vendor bills, then exports them to CSV files.
+    Convert tow ticket data into member invoices and vendor bills, then export them to CSV files.
+
     Parameters
     ----------
     tow_ticket_file : str or Path
@@ -83,8 +84,8 @@ def convert_tow_ticket_to_all_invoices(tow_ticket_file: str | Path,
     - Output files are overwritten if they already exist.
     """
     all_tow_data = TowDataItem.read_from_tow_csv(tow_ticket_file)
-    vendor_bills: list[VendorBillItem] = list()
-    member_invoices: list[MemberInvoiceItem] = list()
+    vendor_bills: list[VendorBillItem] = []
+    member_invoices: list[MemberInvoiceItem] = []
     for tow_data in all_tow_data:
         vendor_bills.extend(VendorBillItem.from_tow_data(tow_data))
         member_invoices.extend(MemberInvoiceItem.from_tow_data(
