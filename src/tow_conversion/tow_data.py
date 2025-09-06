@@ -1,10 +1,11 @@
 """Tow Data Item Class for Tow Ticket System CSV Import"""
 from collections.abc import Generator
-from datetime import datetime
-from dataclasses import dataclass, field
-from pathlib import Path
 import csv
+from dataclasses import dataclass, field
+from datetime import datetime
 from enum import Enum
+from pathlib import Path
+
 from tow_conversion.name import Name
 
 

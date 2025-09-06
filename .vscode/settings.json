@@ -16,5 +16,15 @@
     "python.linting.mypyEnabled": true,
     "python.linting.mypyArgs": [
         // "--ignore-missing-imports"
+    ],
+    // Ruff configuration
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "python.linting.ruffEnabled": true,
+    "python.linting.ruffArgs": [
+        "--config=pyproject.toml"
     ]
 }

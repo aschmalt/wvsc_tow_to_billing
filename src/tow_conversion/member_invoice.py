@@ -1,12 +1,13 @@
 """Module to define the MemberInvoiceItem class for tow billing information and method to save"""
-from datetime import datetime, timedelta
-from pathlib import Path
-import logging
 import csv
+from datetime import datetime, timedelta
 from enum import Enum
-from tow_conversion.tow_data import TowDataItem
+import logging
+from pathlib import Path
+
 from tow_conversion.invoice import Invoice
 from tow_conversion.name import Name
+from tow_conversion.tow_data import TowDataItem
 
 log = logging.getLogger('MemberInvoice')
 

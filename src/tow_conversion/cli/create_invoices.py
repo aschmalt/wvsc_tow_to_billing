@@ -1,10 +1,10 @@
 """Command-line interface for converting tow tickets to member invoices and vendor bills."""
 import argparse
+import logging
 from pathlib import Path
 import sys
-import logging
-from tow_conversion import convert_tow_ticket_to_all_invoices
 
+from tow_conversion import convert_tow_ticket_to_all_invoices
 
 # Remove all handlers associated with the root logger object.
 for handler in logging.root.handlers[:]:
