@@ -1,5 +1,7 @@
 import pytest
+import csv
 from datetime import datetime
+from pathlib import Path
 from tow_conversion.tow_data import TowDataItem, TicketCategory
 from tow_conversion.name import Name
 
@@ -146,3 +148,62 @@ def test_read_from_tow_csv(tmp_path) -> None:
         elif isinstance(got, TicketCategory) and isinstance(value, str):
             value = TicketCategory(value)
         assert got == value, f"Expected {key} to be {value}, got {got}"
+
+
+@pytest.mark.parametrize("date_str,expected", [
+    pytest.param("2024-06-01 12:00:00", datetime(2024,
+                 6, 1, 12, 0, 0), id="ISO format"),
+    pytest.param("6/1/2024 12:00", datetime(2024, 6, 1, 12, 0),
+                 id="US format, no seconds"),
+    pytest.param("06/01/2024 12:00:00", datetime(2024, 6, 1, 12,
+                 0, 0), id="US format, padded, with seconds"),
+    pytest.param("2024/06/01 12:00", datetime(2024, 6, 1, 12, 0),
+                 id="Slash-separated, no seconds"),
+    pytest.param("2024-06-01T12:00:00", datetime(2024,
+                 6, 1, 12, 0, 0), id="ISO with T"),
+])
+def test_read_from_tow_csv_date_formats(tmp_path: Path, date_str: str, expected: datetime) -> None:
+    tow_data = valid_tow_kwargs()
+    tow_data['date_time'] = expected
+
+    csv_data = {
+        'Ticket #': tow_data['ticket'],
+        'Date Time': date_str,
+        'Bill To/Pilot': tow_data['pilot'],
+        'Month': expected.strftime('%m'),
+        'CFIG': tow_data['cfig'],
+        'Guest': tow_data['guest'],
+        'Airport': tow_data['airport'],
+        'Category': tow_data['category'],
+        'Billable Rental': '1' if tow_data['billable_rental'] else '0',
+        'Billable Tow': '1' if tow_data['billable_tow'] else '0',
+        'Glider ID': tow_data['glider_id'],
+        'Tow Type': tow_data['tow_type'],
+        'Tow Speed': tow_data['tow_speed'],
+        'Alt Required': tow_data['alt_required'],
+        'Release Alt': tow_data['release_alt'],
+        'Glider Time': tow_data['glider_time'],
+        'Tow Raw': tow_data['tow_fee'],
+        'Tow Fee': tow_data['tow_fee'],
+        'Rental Raw': tow_data['rental_fee'],
+        'Glider Rental': tow_data['rental_fee'],
+        'Flight Brief': tow_data['flight_brief'],
+        'Remarks': tow_data['remarks'],
+        'Certificate': tow_data['certificate'],
+        'Tow Pilot': tow_data['tow_pilot'],
+        'Tow Plane': tow_data['tow_plane'],
+        'Flown Flag': '1' if tow_data['flown_flag'] else '0',
+        'Closed Flag': '1' if tow_data['closed_flag'] else '0'
+    }
+
+    csv_file = tmp_path / "tow_data.csv"
+    with open(csv_file, mode='w', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=csv_data.keys())
+        writer.writeheader()
+        writer.writerow(csv_data)
+
+    all_data = list(TowDataItem.read_from_tow_csv(csv_file))
+    assert len(all_data) == 1
+    tow_instance = all_data[0]
+    assert isinstance(tow_instance, TowDataItem)
+    assert tow_instance.date_time == expected, f"Expected {expected}, got {tow_instance.date_time}"

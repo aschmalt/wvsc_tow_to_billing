@@ -114,6 +114,49 @@ class TowDataItem:
             if self.tow_speed <= 0:
                 raise ValueError("Tow speed must be greater than 0.")
 
+    @staticmethod
+    def _parse_date(date_str: str) -> datetime:
+        """
+        Parse a date string in multiple formats.
+
+        Attempts to parse the input date string using several common date-time formats.
+        If none match, tries to parse using ISO format. Raises a ValueError if parsing fails.
+
+        Parameters
+        ----------
+        date_str : str
+            The date string to parse.
+
+        Returns
+        -------
+        datetime
+            The parsed datetime object.
+
+        Raises
+        ------
+        ValueError
+            If the date string does not match any recognized format.
+        """
+        formats = [
+            "%Y-%m-%d %H:%M:%S",
+            "%Y-%m-%dT%H:%M:%S",
+            "%m/%d/%Y %H:%M",
+            "%m/%d/%Y %H:%M:%S",
+            "%Y/%m/%d %H:%M",
+            "%Y/%m/%d %H:%M:%S",
+        ]
+        for fmt in formats:
+            try:
+                return datetime.strptime(date_str, fmt)
+            except ValueError:
+                continue
+        # Try ISO format last
+        try:
+            return datetime.fromisoformat(date_str)
+        except ValueError:
+            pass
+        raise ValueError(f"Date is not in a recognized format: {date_str}")
+
     @classmethod
     def read_from_tow_csv(cls, file_path: str | Path) -> Generator['TowDataItem', str | Path, None]:  # pylint: disable=too-many-branches
         """Read tow data from a CSV file and populate the instance."""
@@ -122,7 +165,7 @@ class TowDataItem:
             for row in reader:
                 inputs = {
                     'ticket': int(row['Ticket #']),
-                    'date_time': datetime.fromisoformat(row['Date Time']),
+                    'date_time': cls._parse_date(row['Date Time']),
                     'pilot': Name(row['Bill To/Pilot'].strip()),
                     'airport': row['Airport'],
                     'category': TicketCategory(row['Category'].strip()),
