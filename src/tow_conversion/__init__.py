@@ -1,4 +1,4 @@
-"""This module provides the class for handling TOW data and converting it."""
+"""Provide the class for handling TOW data and converting it."""
 # pylint: disable=cyclic-import
 from importlib.metadata import PackageNotFoundError, version
 

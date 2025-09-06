@@ -5,6 +5,7 @@ from dataclasses import dataclass
 @dataclass
 class Name:
     """Class to hold a name and be able to get it in Last, First format."""
+
     name: str
 
     def __post_init__(self) -> None:
@@ -24,8 +25,11 @@ class Name:
             self.last = parts[-1].strip()
 
     def __str__(self) -> str:
-        """Return the name in Last, First format if both parts are available.
-        If not, return the original name."""
+        """
+        Return the name in Last, First format if both parts are available.
+
+        If not, return the original name.
+        """
         if self.first and self.last:
             return f"{self.last}, {self.first}"
         return self.name

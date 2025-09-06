@@ -17,7 +17,7 @@ logging.basicConfig(
 
 
 def main() -> None:
-    """Main function to handle command-line arguments and invoke conversion functions."""
+    """Handle command-line arguments and invoke conversion functions."""
     parser = argparse.ArgumentParser(
         description="Convert a tow ticket CSV file to member invoice and vendor bill CSV files."
     )

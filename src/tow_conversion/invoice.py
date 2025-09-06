@@ -1,5 +1,4 @@
 """Base invoice class for the invoice modules."""
-from abc import ABC
 from datetime import datetime
 from enum import Enum
 import logging
@@ -10,8 +9,9 @@ from tow_conversion.tow_data import TicketCategory, TowDataItem
 log = logging.getLogger('Invoice')
 
 
-class Invoice(ABC):
+class Invoice:
     """Base class for invoice items, providing common attributes and methods."""
+
     # pylint: disable=too-many-arguments
     # pylint: disable=too-many-positional-arguments
 
@@ -28,7 +28,7 @@ class Invoice(ABC):
         product: Enum | None = None,
     ) -> None:
         """
-        Base invoice class.
+        Initialize the base invoice class.
 
         Parameters
         ----------
@@ -77,7 +77,8 @@ class Invoice(ABC):
     @staticmethod
     def is_tow_ticket_completed(tow_data: TowDataItem, log_warnings: bool = True) -> bool:
         """
-        Checks whether a tow ticket is completed based on flown and closed flags.
+        Check whether a tow ticket is completed based on flown and closed flags.
+
         Parameters
         ----------
         tow_data : TowDataItem
@@ -85,12 +86,12 @@ class Invoice(ABC):
         log_warnings : bool, optional
             If False, suppresses warning logs for unflown or unclosed tickets.
             Defaults to True, which will log warnings if the ticket is not completed.
+
         Returns
         -------
         bool
             True if the tow ticket has been both flown and closed, False otherwise.
         """
-
         if not tow_data.flown_flag:
             if log_warnings:
                 log.warning(

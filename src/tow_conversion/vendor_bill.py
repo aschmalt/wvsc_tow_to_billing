@@ -1,4 +1,4 @@
-"""Module to define the VendorBillItem class for tow & intro billing information and method to save"""
+"""Module to define the VendorBillItem class for tow & intro billing information and method to save."""
 import csv
 from datetime import datetime, timedelta
 from enum import Enum
@@ -14,6 +14,7 @@ log = logging.getLogger('VendorBill')
 
 class Classification(Enum):
     """Class to hold classification constants for the MemberInvoiceItem."""
+
     INTRO = "INTRO RIDES"
     TOW = "TOW"
     PACK = "5 PACKS"
@@ -21,6 +22,7 @@ class Classification(Enum):
 
 class Category(Enum):
     """Class to hold category constants for the MemberInvoiceItem."""
+
     INTRO = "Intro Pilot Expense"
     TOW = "Tow Pilot Expense"
     PACK = "5 Pack Expense"
@@ -55,7 +57,7 @@ class VendorBillItem(Invoice):
         list[VendorBillItem]
             A list of VendorBillItem instances created from the provided TowDataItem.
         """
-        items: list[VendorBillItem] = list()
+        items: list[VendorBillItem] = []
         if not cls.is_tow_ticket_completed(tow_data, log_warnings=log_unbillable_tow_tickets):
             return items
 
@@ -65,7 +67,12 @@ class VendorBillItem(Invoice):
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, {tow_data.tow_plane}, Pilot: {tow_data.pilot}',  # pylint: disable=line-too-long
+                description=(
+                    f'Ticket #: {tow_data.ticket}, '
+                    f'Release Alt: {tow_data.release_alt}, '
+                    f'{tow_data.tow_plane}, '
+                    f'Pilot: {tow_data.pilot}'
+                ),
                 category=Category.TOW,
                 classification=Classification.TOW,
                 name=tow_data.tow_pilot,
@@ -79,7 +86,12 @@ class VendorBillItem(Invoice):
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, Glider: {tow_data.glider_id}, {tow_data.guest}',  # pylint: disable=line-too-long
+                description=(
+                    f'Ticket #: {tow_data.ticket}, '
+                    f'Release Alt: {tow_data.release_alt}, '
+                    f'Glider: {tow_data.glider_id}, '
+                    f'{tow_data.guest}'
+                ),
                 category=Category.INTRO,
                 classification=Classification.INTRO,
                 name=tow_data.pilot,
@@ -93,11 +105,17 @@ class VendorBillItem(Invoice):
                 log.error(
                     'Tow ticket %s is a PACK but has no CFIG. Skipping.', tow_data.ticket)
                 return items
+
             pack_bill = VendorBillItem(
                 invoice_date=datetime.now(),
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
-                description=f'Ticket #: {tow_data.ticket}, Release Alt: {tow_data.release_alt}, Glider: {tow_data.glider_id}, {tow_data.pilot}',  # pylint: disable=line-too-long
+                description=(
+                    f"Ticket #: {tow_data.ticket}, "
+                    f"Release Alt: {tow_data.release_alt}, "
+                    f"Glider: {tow_data.glider_id}, "
+                    f"{tow_data.pilot}"
+                ),
                 category=Category.PACK,
                 classification=Classification.PACK,
                 name=tow_data.cfig,
@@ -128,12 +146,12 @@ def export_vendor_bills_to_csv(filename: str | Path, invoices: list[VendorBillIt
     This method writes the provided vendor bill items to the specified CSV file.
     """
     log.info("Exporting vendor invoices to %s", filename)
-    invoices_by_vendor: dict[Name, list[VendorBillItem]] = dict()
+    invoices_by_vendor: dict[Name, list[VendorBillItem]] = {}
     for item in invoices:
         key = item.name
         # Group items by vendor name (pilot)
         if key not in invoices_by_vendor:
-            invoices_by_vendor[key] = list()
+            invoices_by_vendor[key] = []
         invoices_by_vendor[key].append(item)
 
     headers = ['Vendor Name',
