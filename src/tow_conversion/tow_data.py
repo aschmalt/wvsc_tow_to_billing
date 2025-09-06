@@ -1,17 +1,17 @@
 """Tow Data Item Class for Tow Ticket System CSV Import"""
 from collections.abc import Generator
-from datetime import datetime
-from dataclasses import dataclass, field
-from pathlib import Path
 import csv
+from dataclasses import dataclass, field
+from datetime import datetime
 from enum import Enum
+from pathlib import Path
+
 from tow_conversion.name import Name
 
 
 class TicketCategory(Enum):
-    """
-    Enum to represent different categories of tow tickets.
-    """
+    """Enum to represent different categories of tow tickets."""
+
     CLUB = "Club Glider"
     INTRO = "Intro"
     PACK = "5-Pack"
@@ -47,7 +47,7 @@ class TicketCategory(Enum):
 @dataclass
 class TowDataItem:
     """Class to hold TOW data from Tow Ticket System."""
-    ticket: str = field(
+    ticket: int = field(
         metadata={"description": "Unique identifier for the tow ticket"})
     date_time: datetime = field(
         metadata={"description": "Date and time of the tow ticket in ISO 8601 format"})
@@ -97,8 +97,8 @@ class TowDataItem:
 
     def __post_init__(self) -> None:
         """Post-initialization validation for the TowData class."""
-        if not self.ticket:
-            raise ValueError("Tow Ticket must have a value.")
+        if self.ticket <= 0:
+            raise ValueError("Tow Ticket must be greater than 0.")
         if self.billable_rental and self.rental_fee <= 0:
             raise ValueError(
                 "Rental fee must be greater than 0, if billable rental is True.")
@@ -114,15 +114,63 @@ class TowDataItem:
             if self.tow_speed <= 0:
                 raise ValueError("Tow speed must be greater than 0.")
 
+    _DATE_FORMATS = [
+        "%Y-%m-%d %H:%M:%S",
+        "%Y-%m-%dT%H:%M:%S",
+        "%m/%d/%Y %H:%M",
+        "%m/%d/%Y %H:%M:%S",
+        "%Y/%m/%d %H:%M",
+        "%Y/%m/%d %H:%M:%S",
+    ]
+
+    @staticmethod
+    def _parse_date(date_str: str) -> datetime:
+        """
+        Parse a date string in multiple formats.
+
+        Attempts to parse the input date string using several common date-time formats.
+        If none match, tries to parse using ISO format. Raises a ValueError if parsing fails.
+
+        Parameters
+        ----------
+        date_str : str
+            The date string to parse.
+
+        Returns
+        -------
+        datetime
+            The parsed datetime object.
+
+        Raises
+        ------
+        ValueError
+            If the date string does not match any recognized format.
+        """
+        for fmt in TowDataItem._DATE_FORMATS:
+            try:
+                return datetime.strptime(date_str, fmt)
+            except ValueError:
+                continue
+        # Try ISO format last
+        try:
+            return datetime.fromisoformat(date_str)
+        except ValueError:
+            pass
+        raise ValueError(f"Date is not in a recognized format: {date_str}")
+
     @classmethod
     def read_from_tow_csv(cls, file_path: str | Path) -> Generator['TowDataItem', str | Path, None]:  # pylint: disable=too-many-branches
         """Read tow data from a CSV file and populate the instance."""
         with open(file_path, mode='r', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             for row in reader:
+                if all(value is None or value.strip() == '' for value in row.values()):
+                    continue  # Skip empty rows
+                if not row['Ticket #']:
+                    raise ValueError("Tow Ticket must have a value.")
                 inputs = {
                     'ticket': int(row['Ticket #']),
-                    'date_time': datetime.fromisoformat(row['Date Time']),
+                    'date_time': cls._parse_date(row['Date Time']),
                     'pilot': Name(row['Bill To/Pilot'].strip()),
                     'airport': row['Airport'],
                     'category': TicketCategory(row['Category'].strip()),

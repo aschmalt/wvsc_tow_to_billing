@@ -1,10 +1,11 @@
 """Base invoice class for the invoice modules."""
 from abc import ABC
-import logging
 from datetime import datetime
 from enum import Enum
-from tow_conversion.tow_data import TowDataItem, TicketCategory
+import logging
+
 from tow_conversion.name import Name
+from tow_conversion.tow_data import TicketCategory, TowDataItem
 
 log = logging.getLogger('Invoice')
 

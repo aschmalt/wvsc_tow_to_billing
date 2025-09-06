@@ -1,16 +1,17 @@
-from pathlib import Path
 import csv
 from datetime import datetime, timedelta
+from pathlib import Path
+
 import pytest
 
 from tow_conversion import TowDataItem
-from tow_conversion.name import Name
 from tow_conversion.member_invoice import (
+    Classification,
     MemberInvoiceItem,
     Product,
-    Classification,
     export_member_invoices_to_csv,
 )
+from tow_conversion.name import Name
 
 
 def create_dummy_tow_data_item(**kwargs) -> TowDataItem:
@@ -18,7 +19,7 @@ def create_dummy_tow_data_item(**kwargs) -> TowDataItem:
     settings = {'flown_flag': True,
                 'closed_flag': True,
                 'pilot': Name("Smith, John"),
-                'ticket': "123",
+                'ticket': 123,
                 'glider_id': "G1",
                 'glider_time': 1.5,
                 'billable_rental': True,

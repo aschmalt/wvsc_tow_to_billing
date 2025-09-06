@@ -1,15 +1,16 @@
 """GUI for converting tow tickets to billing invoices."""
-from typing import Any
 from collections.abc import Callable
-from pathlib import Path
 import logging
 import os
+from pathlib import Path
 import subprocess
 import sys
 import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext
-from tow_conversion.cli.create_invoices import convert_tow_ticket_to_all_invoices
+from typing import Any
+
 from tow_conversion import __version__
+from tow_conversion.cli.create_invoices import convert_tow_ticket_to_all_invoices
 
 
 class CreateInvoicesGUI(tk.Tk):

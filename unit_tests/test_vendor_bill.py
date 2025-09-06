@@ -1,16 +1,12 @@
-from pathlib import Path
-import pytest
 import csv
 from datetime import datetime, timedelta
+from pathlib import Path
 
-from tow_conversion.tow_data import TowDataItem, TicketCategory
+import pytest
+
 from tow_conversion.name import Name
-from tow_conversion.vendor_bill import (
-    VendorBillItem,
-    Category,
-    Classification,
-    export_vendor_bills_to_csv
-)
+from tow_conversion.tow_data import TicketCategory, TowDataItem
+from tow_conversion.vendor_bill import Category, Classification, VendorBillItem, export_vendor_bills_to_csv
 
 
 def create_dummy_tow_data_item(**kwargs) -> TowDataItem:
@@ -19,7 +15,7 @@ def create_dummy_tow_data_item(**kwargs) -> TowDataItem:
                 'closed_flag': True,
                 'pilot': Name("Smith, John"),
                 'cfig': Name("Tor, Instruct"),
-                'ticket': "123",
+                'ticket': 123,
                 'tow_pilot': Name("Doe, Jane"),
                 'tow_plane': "Cessna 172",
                 'glider_id': "G1",

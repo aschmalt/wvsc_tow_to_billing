@@ -1,12 +1,13 @@
 """Module to define the VendorBillItem class for tow & intro billing information and method to save"""
-from pathlib import Path
+import csv
 from datetime import datetime, timedelta
 from enum import Enum
 import logging
-import csv
-from tow_conversion.tow_data import TowDataItem, TicketCategory
+from pathlib import Path
+
 from tow_conversion.invoice import Invoice
 from tow_conversion.name import Name
+from tow_conversion.tow_data import TicketCategory, TowDataItem
 
 log = logging.getLogger('VendorBill')
 
