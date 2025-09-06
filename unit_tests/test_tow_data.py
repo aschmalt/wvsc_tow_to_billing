@@ -1,5 +1,5 @@
-import pytest
 import csv
+import pytest
 from datetime import datetime
 from pathlib import Path
 from tow_conversion.tow_data import TowDataItem, TicketCategory
@@ -95,39 +95,42 @@ def test_str_and_repr_methods() -> None:
     assert "TowDataItem(ticket=1)" in r
 
 
-def test_read_from_tow_csv(tmp_path) -> None:
-    """Test reading from a CSV file."""
-    tow_data = valid_tow_kwargs()
-
-    csv_data = {
-        'Ticket #': tow_data['ticket'],
+def tow_data_to_csv_row(tow_data: dict[str, str | int | float | datetime]) -> dict[str, str]:
+    return {
+        'Ticket #': str(tow_data['ticket']),
         'Date Time': tow_data['date_time'].strftime('%Y-%m-%d %H:%M:%S'),
-        'Bill To/Pilot': tow_data['pilot'],
+        'Bill To/Pilot': str(tow_data['pilot']),
         'Month': tow_data['date_time'].strftime('%m'),
-        'CFIG': tow_data['cfig'],
-        'Guest': tow_data['guest'],
-        'Airport': tow_data['airport'],
-        'Category': tow_data['category'],
+        'CFIG': str(tow_data['cfig']),
+        'Guest': str(tow_data['guest']),
+        'Airport': str(tow_data['airport']),
+        'Category': str(tow_data['category']),
         'Billable Rental': '1' if tow_data['billable_rental'] else '0',
         'Billable Tow': '1' if tow_data['billable_tow'] else '0',
-        'Glider ID': tow_data['glider_id'],
-        'Tow Type': tow_data['tow_type'],
-        'Tow Speed': tow_data['tow_speed'],
-        'Alt Required': tow_data['alt_required'],
-        'Release Alt': tow_data['release_alt'],
-        'Glider Time': tow_data['glider_time'],
-        'Tow Raw': tow_data['tow_fee'],
-        'Tow Fee': tow_data['tow_fee'],
-        'Rental Raw': tow_data['rental_fee'],
-        'Glider Rental': tow_data['rental_fee'],
-        'Flight Brief': tow_data['flight_brief'],
-        'Remarks': tow_data['remarks'],
-        'Certificate': tow_data['certificate'],
-        'Tow Pilot': tow_data['tow_pilot'],
-        'Tow Plane': tow_data['tow_plane'],
+        'Glider ID': str(tow_data['glider_id']),
+        'Tow Type': str(tow_data['tow_type']),
+        'Tow Speed': str(tow_data['tow_speed']),
+        'Alt Required': str(tow_data['alt_required']),
+        'Release Alt': str(tow_data['release_alt']),
+        'Glider Time': str(tow_data['glider_time']),
+        'Tow Raw': str(tow_data['tow_fee']),
+        'Tow Fee': str(tow_data['tow_fee']),
+        'Rental Raw': str(tow_data['rental_fee']),
+        'Glider Rental': str(tow_data['rental_fee']),
+        'Flight Brief': str(tow_data['flight_brief']),
+        'Remarks': str(tow_data['remarks']),
+        'Certificate': str(tow_data['certificate']),
+        'Tow Pilot': str(tow_data['tow_pilot']),
+        'Tow Plane': str(tow_data['tow_plane']),
         'Flown Flag': '1' if tow_data['flown_flag'] else '0',
         'Closed Flag': '1' if tow_data['closed_flag'] else '0'
     }
+
+
+def test_read_from_tow_csv(tmp_path) -> None:
+    """Test reading from a CSV file."""
+    tow_data = valid_tow_kwargs()
+    csv_data = tow_data_to_csv_row(tow_data)
 
     csv_file = tmp_path / "tow_data.csv"
     with open(csv_file, mode='w', newline='') as file:
@@ -158,37 +161,8 @@ def test_read_from_tow_csv(tmp_path) -> None:
 ])
 def test_read_from_tow_csv_date_formats(tmp_path: Path, date_str: str, expected: datetime) -> None:
     tow_data = valid_tow_kwargs()
-    tow_data['date_time'] = expected
-
-    csv_data = {
-        'Ticket #': tow_data['ticket'],
-        'Date Time': date_str,
-        'Bill To/Pilot': tow_data['pilot'],
-        'Month': expected.strftime('%m'),
-        'CFIG': tow_data['cfig'],
-        'Guest': tow_data['guest'],
-        'Airport': tow_data['airport'],
-        'Category': tow_data['category'],
-        'Billable Rental': '1' if tow_data['billable_rental'] else '0',
-        'Billable Tow': '1' if tow_data['billable_tow'] else '0',
-        'Glider ID': tow_data['glider_id'],
-        'Tow Type': tow_data['tow_type'],
-        'Tow Speed': tow_data['tow_speed'],
-        'Alt Required': tow_data['alt_required'],
-        'Release Alt': tow_data['release_alt'],
-        'Glider Time': tow_data['glider_time'],
-        'Tow Raw': tow_data['tow_fee'],
-        'Tow Fee': tow_data['tow_fee'],
-        'Rental Raw': tow_data['rental_fee'],
-        'Glider Rental': tow_data['rental_fee'],
-        'Flight Brief': tow_data['flight_brief'],
-        'Remarks': tow_data['remarks'],
-        'Certificate': tow_data['certificate'],
-        'Tow Pilot': tow_data['tow_pilot'],
-        'Tow Plane': tow_data['tow_plane'],
-        'Flown Flag': '1' if tow_data['flown_flag'] else '0',
-        'Closed Flag': '1' if tow_data['closed_flag'] else '0'
-    }
+    csv_data = tow_data_to_csv_row(tow_data)
+    csv_data['Date Time'] = date_str
 
     csv_file = tmp_path / "tow_data.csv"
     with open(csv_file, mode='w', newline='') as file:

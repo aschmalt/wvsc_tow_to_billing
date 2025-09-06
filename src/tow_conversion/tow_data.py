@@ -47,7 +47,7 @@ class TicketCategory(Enum):
 @dataclass
 class TowDataItem:
     """Class to hold TOW data from Tow Ticket System."""
-    ticket: str = field(
+    ticket: int = field(
         metadata={"description": "Unique identifier for the tow ticket"})
     date_time: datetime = field(
         metadata={"description": "Date and time of the tow ticket in ISO 8601 format"})
@@ -114,6 +114,15 @@ class TowDataItem:
             if self.tow_speed <= 0:
                 raise ValueError("Tow speed must be greater than 0.")
 
+    _DATE_FORMATS = [
+        "%Y-%m-%d %H:%M:%S",
+        "%Y-%m-%dT%H:%M:%S",
+        "%m/%d/%Y %H:%M",
+        "%m/%d/%Y %H:%M:%S",
+        "%Y/%m/%d %H:%M",
+        "%Y/%m/%d %H:%M:%S",
+    ]
+
     @staticmethod
     def _parse_date(date_str: str) -> datetime:
         """
@@ -137,15 +146,7 @@ class TowDataItem:
         ValueError
             If the date string does not match any recognized format.
         """
-        formats = [
-            "%Y-%m-%d %H:%M:%S",
-            "%Y-%m-%dT%H:%M:%S",
-            "%m/%d/%Y %H:%M",
-            "%m/%d/%Y %H:%M:%S",
-            "%Y/%m/%d %H:%M",
-            "%Y/%m/%d %H:%M:%S",
-        ]
-        for fmt in formats:
+        for fmt in TowDataItem._DATE_FORMATS:
             try:
                 return datetime.strptime(date_str, fmt)
             except ValueError:
