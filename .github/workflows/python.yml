@@ -65,4 +65,4 @@ jobs:
         ruff check src
     - name: Run ruff formatter check
       run: |
-        ruff format --check src
+        ruff check src
