@@ -48,7 +48,7 @@ def test_valid_towdata_creation() -> None:
 def test_ticket_must_be_non_negative() -> None:
     kwargs = VALID_TOW_KWARGS.copy()
     kwargs['ticket'] = -1
-    with pytest.raises(ValueError, match="Tow Ticket must greater than 0."):
+    with pytest.raises(ValueError, match="Tow Ticket must be greater than 0."):
         TowDataItem(**kwargs)
 
 

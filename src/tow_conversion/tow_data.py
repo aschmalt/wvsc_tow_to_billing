@@ -98,7 +98,7 @@ class TowDataItem:
     def __post_init__(self) -> None:
         """Post-initialization validation for the TowData class."""
         if self.ticket <= 0:
-            raise ValueError("Tow Ticket must greater than 0.")
+            raise ValueError("Tow Ticket must be greater than 0.")
         if self.billable_rental and self.rental_fee <= 0:
             raise ValueError(
                 "Rental fee must be greater than 0, if billable rental is True.")
