@@ -111,10 +111,10 @@ class VendorBillItem(Invoice):
                 due_date=datetime.now() + timedelta(days=30),
                 service_date=tow_data.date_time,
                 description=(
-                    f"Ticket #: {tow_data.ticket}, "
-                    f"Release Alt: {tow_data.release_alt}, "
-                    f"Glider: {tow_data.glider_id}, "
-                    f"{tow_data.pilot}"
+                    f'Ticket #: {tow_data.ticket}, '
+                    f'Release Alt: {tow_data.release_alt}, '
+                    f'Glider: {tow_data.glider_id}, '
+                    f'{tow_data.pilot}'
                 ),
                 category=Category.PACK,
                 classification=Classification.PACK,
