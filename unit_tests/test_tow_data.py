@@ -6,37 +6,36 @@ from tow_conversion.tow_data import TowDataItem, TicketCategory
 from tow_conversion.name import Name
 
 
-def valid_tow_kwargs() -> dict[str, int | datetime | str | float]:
-    return dict(
-        ticket=1,
-        date_time=datetime(2024, 6, 1, 12, 0),
-        pilot="John Doe",
-        airport="WVSC",
-        category="Club Glider",
-        glider_id="G-123",
-        tow_type="Aerotow",
-        flight_brief="Standard",
-        cfig="Jane Smith",
-        guest="Guest Name",
-        billable_rental=True,
-        billable_tow=True,
-        tow_speed=60,
-        alt_required=2000,
-        release_alt=2000,
-        glider_time=1.0,
-        tow_fee=50.0,
-        rental_fee=30.0,
-        remarks="No remarks",
-        certificate="CERT123",
-        tow_pilot="Tow Pilot",
-        tow_plane="Tow Plane",
-        flown_flag=True,
-        closed_flag=True
-    )
+VALID_TOW_KWARGS: dict[str, int | datetime | str | float] = dict(
+    ticket=1,
+    date_time=datetime(2024, 6, 1, 12, 0),
+    pilot="John Doe",
+    airport="WVSC",
+    category="Club Glider",
+    glider_id="G-123",
+    tow_type="Aerotow",
+    flight_brief="Standard",
+    cfig="Jane Smith",
+    guest="Guest Name",
+    billable_rental=True,
+    billable_tow=True,
+    tow_speed=60,
+    alt_required=2000,
+    release_alt=2000,
+    glider_time=1.0,
+    tow_fee=50.0,
+    rental_fee=30.0,
+    remarks="No remarks",
+    certificate="CERT123",
+    tow_pilot="Tow Pilot",
+    tow_plane="Tow Plane",
+    flown_flag=True,
+    closed_flag=True
+)
 
 
 def test_valid_towdata_creation() -> None:
-    tow = TowDataItem(**valid_tow_kwargs())
+    tow = TowDataItem(**VALID_TOW_KWARGS)
     assert tow.ticket == 1
     assert tow.pilot == "John Doe"
     assert tow.tow_fee == 50.0
@@ -46,49 +45,49 @@ def test_valid_towdata_creation() -> None:
 
 
 def test_ticket_must_be_non_negative() -> None:
-    kwargs = valid_tow_kwargs()
+    kwargs = VALID_TOW_KWARGS.copy()
     kwargs['ticket'] = ''
     with pytest.raises(ValueError, match="Tow Ticket must have a value."):
         TowDataItem(**kwargs)
 
 
 def test_rental_fee_must_be_positive_if_billable() -> None:
-    kwargs = valid_tow_kwargs()
+    kwargs = VALID_TOW_KWARGS.copy()
     kwargs['rental_fee'] = 0
     with pytest.raises(ValueError, match="Rental fee must be greater than 0, if billable rental is True."):
         TowDataItem(**kwargs)
 
 
 def test_tow_fee_must_be_positive_if_billable() -> None:
-    kwargs = valid_tow_kwargs()
+    kwargs = VALID_TOW_KWARGS.copy()
     kwargs['tow_fee'] = 0
     with pytest.raises(ValueError, match="Tow fee must be greater than 0, if billable tow is True."):
         TowDataItem(**kwargs)
 
 
 def test_glider_time_must_be_positive_if_billable() -> None:
-    kwargs = valid_tow_kwargs()
+    kwargs = VALID_TOW_KWARGS.copy()
     kwargs['glider_time'] = 0
     with pytest.raises(ValueError, match="Glider time must be greater than 0, if billable rental is True."):
         TowDataItem(**kwargs)
 
 
 def test_release_alt_must_be_positive() -> None:
-    kwargs = valid_tow_kwargs()
+    kwargs = VALID_TOW_KWARGS.copy()
     kwargs['release_alt'] = 0
     with pytest.raises(ValueError, match="Release altitude must be greater than 0."):
         TowDataItem(**kwargs)
 
 
 def test_tow_speed_must_be_positive() -> None:
-    kwargs = valid_tow_kwargs()
+    kwargs = VALID_TOW_KWARGS.copy()
     kwargs['tow_speed'] = 0
     with pytest.raises(ValueError, match="Tow speed must be greater than 0."):
         TowDataItem(**kwargs)
 
 
 def test_str_and_repr_methods() -> None:
-    tow = TowDataItem(**valid_tow_kwargs())
+    tow = TowDataItem(**VALID_TOW_KWARGS)
     s = str(tow)
     r = repr(tow)
     assert "TOW Ticket: 1" in s
@@ -129,7 +128,7 @@ def tow_data_to_csv_row(tow_data: dict[str, str | int | float | datetime]) -> di
 
 def test_read_from_tow_csv(tmp_path) -> None:
     """Test reading from a CSV file."""
-    tow_data = valid_tow_kwargs()
+    tow_data = VALID_TOW_KWARGS.copy()
     csv_data = tow_data_to_csv_row(tow_data)
 
     csv_file = tmp_path / "tow_data.csv"
@@ -160,7 +159,7 @@ def test_read_from_tow_csv(tmp_path) -> None:
     pytest.param("2024-06-01T12:00:00", datetime(2024, 6, 1, 12, 0, 0), id="ISO with T"),
 ])
 def test_read_from_tow_csv_date_formats(tmp_path: Path, date_str: str, expected: datetime) -> None:
-    tow_data = valid_tow_kwargs()
+    tow_data = VALID_TOW_KWARGS.copy()
     csv_data = tow_data_to_csv_row(tow_data)
     csv_data['Date Time'] = date_str
 
