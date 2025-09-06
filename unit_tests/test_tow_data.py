@@ -97,7 +97,6 @@ def test_str_and_repr_methods() -> None:
 
 def test_read_from_tow_csv(tmp_path) -> None:
     """Test reading from a CSV file."""
-    import csv
     tow_data = valid_tow_kwargs()
 
     csv_data = {
@@ -151,16 +150,11 @@ def test_read_from_tow_csv(tmp_path) -> None:
 
 
 @pytest.mark.parametrize("date_str,expected", [
-    pytest.param("2024-06-01 12:00:00", datetime(2024,
-                 6, 1, 12, 0, 0), id="ISO format"),
-    pytest.param("6/1/2024 12:00", datetime(2024, 6, 1, 12, 0),
-                 id="US format, no seconds"),
-    pytest.param("06/01/2024 12:00:00", datetime(2024, 6, 1, 12,
-                 0, 0), id="US format, padded, with seconds"),
-    pytest.param("2024/06/01 12:00", datetime(2024, 6, 1, 12, 0),
-                 id="Slash-separated, no seconds"),
-    pytest.param("2024-06-01T12:00:00", datetime(2024,
-                 6, 1, 12, 0, 0), id="ISO with T"),
+    pytest.param("2024-06-01 12:00:00", datetime(2024, 6, 1, 12, 0, 0), id="ISO format"),
+    pytest.param("6/1/2024 12:00", datetime(2024, 6, 1, 12, 0), id="US format, no seconds"),
+    pytest.param("06/01/2024 12:00:00", datetime(2024, 6, 1, 12, 0, 0), id="US format, padded, with seconds"),
+    pytest.param("2024/06/01 12:00", datetime(2024, 6, 1, 12, 0), id="Slash-separated, no seconds"),
+    pytest.param("2024-06-01T12:00:00", datetime(2024, 6, 1, 12, 0, 0), id="ISO with T"),
 ])
 def test_read_from_tow_csv_date_formats(tmp_path: Path, date_str: str, expected: datetime) -> None:
     tow_data = valid_tow_kwargs()

@@ -47,6 +47,9 @@ dev = [
 [project.gui-scripts]
 tow-converter = "tow_conversion.gui.converter.__main__:main"
 
+[tool.autopep8]
+max_line_length = 120
+
 [tool.pyinstaller]
 # Example: specify the entry script and options
 main-script = "src/tow_conversion/gui/converter.py"
